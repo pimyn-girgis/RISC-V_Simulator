@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+
+# apple
+.DS_Store
+.AppleDouble
+.LSOverride
