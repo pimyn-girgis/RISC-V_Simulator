@@ -1,0 +1,1 @@
+May 1 8:11 pm: implemented a tokenization system for text extraction
