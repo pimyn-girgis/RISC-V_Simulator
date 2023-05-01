@@ -7,52 +7,54 @@
 #include <map>
 using namespace std;
 
-void LUI(char* str, const char* delim, char* nextInstruction, map<string,vector<int>*> registers);
-void AUIPC(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void JAL(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void JALR(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void BEQ(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void BNE(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void BLT(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void BGE(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void BLTU(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void BGEU(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void LB(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void LH(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void LW(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void LBU(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void LHU(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void SB(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void SH(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void SW(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void ADDI(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void SLTI(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void SLTIU(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void XORI(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void ORI(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void ANDI(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void SLLI(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void SRLI(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void SRAI(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void ADD(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void SUB(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void SLL(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void SLT(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void SLTU(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void XOR(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void SRL(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void SRA(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void OR(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void AND(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
-void TERMINATE(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void LUI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void AUIPC(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void JAL(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels);
+void JALR(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels);
+void BEQ(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels);
+void BNE(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels);
+void BLT(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels);
+void BGE(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels);
+void BLTU(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels);
+void BGEU(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels);
+void LB(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void LH(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void LW(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void LBU(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void LHU(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void SB(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void SH(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void SW(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void ADDI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void SLTI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void SLTIU(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void XORI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void ORI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void ANDI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void SLLI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void SRLI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void SRAI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void ADD(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void SUB(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void SLL(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void SLT(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void SLTU(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void XOR(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void SRL(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void SRA(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void OR(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void AND(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
+void TERMINATE(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
 
 int main()
 {
 	vector<string> instructions_string;
 	vector<int[4]> instructions;
-	map<string, int> labels;
+	map<char*, int> labels;
 	map<string, int>instruction_set;
+	map<char*, int*> registers;
 	instruction_set = Set_Instruction_Set();
+	registers = set_registers();
 	instructions_string = Get_Instructions();
 	labels = Get_Labels(instructions_string);
 	instructions = Translate_Instructions(instructions_string, instruction_set);
@@ -108,6 +110,18 @@ map<string, int>Set_Instruction_Set()
 
 	return instruction_set;
 }
+map<char*, int*> set_registers()
+{
+	map<char*, int*> registers;
+	vector<int*> registers_vec(32);
+	for (int i = 0; i < registers_vec.size(); i++)
+	{
+		*registers_vec[i] = 0;
+	}
+	registers.insert({ "x1",registers_vec[0] });
+	
+	return registers;
+}
 vector<string> Get_Instructions()
 {
 	ifstream file;
@@ -121,9 +135,9 @@ vector<string> Get_Instructions()
 	file.close();
 	return inst;
 }
-map<string, int> Get_Labels(vector<string>& instruction_string)
+map<char*, int> Get_Labels(vector<string>& instruction_string)
 {
-	map<string, int> labels;
+	map<char*, int> labels;
 	istringstream stringStream;
 	string temp;
 	char* str;
@@ -162,7 +176,7 @@ map<string, int> Get_Labels(vector<string>& instruction_string)
 	}
 	return labels;
 }
-vector<int[4]> Translate_Instructions(vector<string>& instruction_string, map<string,int>& instruction_set, map<string, vector<int>*> registers)
+vector<int[4]> Translate_Instructions(vector<string>& instruction_string, map<string,int>& instruction_set, map<char*, int*> registers)
 {
 	char* str;
 	char* nextInstruction;
@@ -187,124 +201,124 @@ vector<int[4]> Translate_Instructions(vector<string>& instruction_string, map<st
 			switch (arr[0])
 			{
 			case 1:
-				LUI(str, delim, nextInstruction, registers);
+				LUI(res, str, delim, nextInstruction, registers);
 				break;
 			case 2:
-				AUIPC(str, delim, nextInstruction, registers);
+				AUIPC(res, str, delim, nextInstruction, registers);
 				break;
 			case 3:
-				JAL(str, delim, nextInstruction, registers);
+				JAL(res, str, delim, nextInstruction, registers);
 				break;
 			case 4:
-				JALR(str, delim, nextInstruction, registers);
+				JALR(res, str, delim, nextInstruction, registers);
 				break;
 			case 5:
-				BEQ(str, delim, nextInstruction, registers);
+				BEQ(res, str, delim, nextInstruction, registers);
 				break;
 			case 6:
-				BNE(str, delim, nextInstruction, registers);
+				BNE(res, str, delim, nextInstruction, registers);
 				break;
 			case 7:
-				BLT(str, delim, nextInstruction, registers);
+				BLT(res, str, delim, nextInstruction, registers);
 				break;
 			case 8:
-				BGE(str, delim, nextInstruction, registers);
+				BGE(res, str, delim, nextInstruction, registers);
 				break;
 			case 9:
-				BLTU(str, delim, nextInstruction, registers);
+				BLTU(res, str, delim, nextInstruction, registers);
 				break;
 			case 10:
-				BGEU(str, delim, nextInstruction, registers);
+				BGEU(res, str, delim, nextInstruction, registers);
 				break;
 			case 11:
-				LB(str, delim, nextInstruction, registers);
+				LB(res, str, delim, nextInstruction, registers);
 				break;
 			case 12:
-				LH(str, delim, nextInstruction, registers);
+				LH(res, str, delim, nextInstruction, registers);
 				break;
 			case 13:
-				LW(str, delim, nextInstruction, registers);
+				LW(res, str, delim, nextInstruction, registers);
 				break;
 			case 14:
-				LBU(str, delim, nextInstruction, registers);
+				LBU(res, str, delim, nextInstruction, registers);
 				break;
 			case 15:
-				LHU(str, delim, nextInstruction, registers);
+				LHU(res, str, delim, nextInstruction, registers);
 				break;
 			case 16:
-				SB(str, delim, nextInstruction, registers);
+				SB(res, str, delim, nextInstruction, registers);
 				break;
 			case 17:
-				SH(str, delim, nextInstruction, registers);
+				SH(res, str, delim, nextInstruction, registers);
 				break;
 			case 18:
-				SW(str, delim, nextInstruction, registers);
+				SW(res, str, delim, nextInstruction, registers);
 				break;
 			case 19:
-				ADDI(str, delim, nextInstruction, registers);
+				ADDI(res, str, delim, nextInstruction, registers);
 				break;
 			case 20:
-				SLTI(str, delim, nextInstruction, registers);
+				SLTI(res, str, delim, nextInstruction, registers);
 				break;
 			case 21:
-				SLTIU(str, delim, nextInstruction, registers);
+				SLTIU(res, str, delim, nextInstruction, registers);
 				break;
 			case 22:
-				XORI(str, delim, nextInstruction, registers);
+				XORI(res, str, delim, nextInstruction, registers);
 				break;
 			case 23:
-				ORI(str, delim, nextInstruction, registers);
+				ORI(res, str, delim, nextInstruction, registers);
 				break;
 			case 24:
-				ANDI(str, delim, nextInstruction, registers);
+				ANDI(res, str, delim, nextInstruction, registers);
 				break;
 			case 25:
-				SLLI(str, delim, nextInstruction, registers);
+				SLLI(res, str, delim, nextInstruction, registers);
 				break;
 			case 26:
-				SRLI(str, delim, nextInstruction, registers);
+				SRLI(res, str, delim, nextInstruction, registers);
 				break;
 			case 27:
-				SRAI(str, delim, nextInstruction, registers);
+				SRAI(res, str, delim, nextInstruction, registers);
 				break;
 			case 28:
-				ADD(str, delim, nextInstruction, registers);
+				ADD(res, str, delim, nextInstruction, registers);
 				break;
 			case 29:
-				SUB(str, delim, nextInstruction, registers);
+				SUB(res, str, delim, nextInstruction, registers);
 				break;
 			case 30:
-				SLL(str, delim, nextInstruction, registers);
+				SLL(res, str, delim, nextInstruction, registers);
 				break;
 			case 31:
-				SLT(str, delim, nextInstruction, registers);
+				SLT(res, str, delim, nextInstruction, registers);
 				break;
 			case 32:
-				SLTU(str, delim, nextInstruction, registers);
+				SLTU(res, str, delim, nextInstruction, registers);
 				break;
 			case 33:
-				XOR(str, delim, nextInstruction, registers);
+				XOR(res, str, delim, nextInstruction, registers);
 				break;
 			case 34:
-				SRL(str, delim, nextInstruction, registers);
+				SRL(res, str, delim, nextInstruction, registers);
 				break;
 			case 35:
-				SRA(str, delim, nextInstruction, registers);
+				SRA(res, str, delim, nextInstruction, registers);
 				break;
 			case 36:
-				OR(str, delim, nextInstruction, registers);
+				OR(res, str, delim, nextInstruction, registers);
 				break;
 			case 37:
-				AND(str, delim, nextInstruction, registers);
+				AND(res, str, delim, nextInstruction, registers);
 				break;
 			case 38:
-				TERMINATE(str, delim, nextInstruction, registers);
+				TERMINATE(res, str, delim, nextInstruction, registers);
 				break;
 			case 39:
-				TERMINATE(str, delim, nextInstruction, registers);
+				TERMINATE(res, str, delim, nextInstruction, registers);
 				break;
 			case 40:
-				TERMINATE(str, delim, nextInstruction, registers);
+				TERMINATE(res, str, delim, nextInstruction, registers);
 				break;
 			}
 		}
@@ -312,4 +326,980 @@ vector<int[4]> Translate_Instructions(vector<string>& instruction_string, map<st
 		
 	}
 	
+}
+void LUI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	int immediate = atoi(res);
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	int* reg = registers[res];
+}
+void AUIPC(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	int immediate = atoi(res);
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	int* reg = registers[res];
+	
+}
+void JAL(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*,int> labels)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	int line;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	
+	reg = registers[res];
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	if (res[0] < '0' || res[0]>'9') //offset address system
+	{
+		immediate = atoi(res);
+		while (res == "")
+		{
+			res = strtok_s(NULL, delim, &nextInstruction);
+		}
+		reg2 = registers[res];
+		
+	}
+	else //label system
+	{
+		line = labels[res];	
+	}
+}
+void JALR(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	int line;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+
+	reg = registers[res];
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	if (res[0] < '0' || res[0]>'9') //offset address system
+	{
+		immediate = atoi(res);
+		while (res == "")
+		{
+			res = strtok_s(NULL, delim, &nextInstruction);
+		}
+		reg2 = registers[res];
+
+	}
+	else //label system
+	{
+		line = labels[res];
+	}
+}
+void BEQ(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	int line;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	if (res[0] < '0' || res[0]>'9') //offset address system
+	{
+		immediate = atoi(res);
+
+	}
+	else //label system
+	{
+		line = labels[res];
+	}
+}
+void BNE(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	int line;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	if (res[0] < '0' || res[0]>'9') //offset address system
+	{
+		immediate = atoi(res);
+
+	}
+	else //label system
+	{
+		line = labels[res];
+	}
+}
+void BLT(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	int line;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	if (res[0] < '0' || res[0]>'9') //offset address system
+	{
+		immediate = atoi(res);
+
+	}
+	else //label system
+	{
+		line = labels[res];
+	}
+}
+void BGE(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	int line;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	if (res[0] < '0' || res[0]>'9') //offset address system
+	{
+		immediate = atoi(res);
+
+	}
+	else //label system
+	{
+		line = labels[res];
+	}
+}
+void BLTU(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	int line;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	if (res[0] < '0' || res[0]>'9') //offset address system
+	{
+		immediate = atoi(res);
+
+	}
+	else //label system
+	{
+		line = labels[res];
+	}
+}
+void BGEU(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	int line;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	if (res[0] < '0' || res[0]>'9') //offset address system
+	{
+		immediate = atoi(res);
+
+	}
+	else //label system
+	{
+		line = labels[res];
+	}
+}
+void LB(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	immediate = atoi(res);
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+}
+void LH(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	immediate = atoi(res);
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+}
+void LW(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	immediate = atoi(res);
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+}
+void LBU(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	immediate = atoi(res);
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+}
+void LHU(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	immediate = atoi(res);
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+}
+void SB(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	immediate = atoi(res);
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+}
+void SH(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	immediate = atoi(res);
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+}
+void SW(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	immediate = atoi(res);
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+}
+void ADDI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	immediate = atoi(res);
+
+	
+}
+void SLTI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	immediate = atoi(res);
+
+
+}
+void SLTIU(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	immediate = atoi(res);
+
+
+}
+void XORI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	immediate = atoi(res);
+
+
+}
+void ORI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	immediate = atoi(res);
+
+
+}
+void ANDI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	immediate = atoi(res);
+
+	
+}
+void SLLI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	immediate = atoi(res);
+
+
+}
+void SRLI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	immediate = atoi(res);
+
+
+}
+void SRAI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	immediate = atoi(res);
+
+
+}
+void ADD(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int* reg3;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg3 = registers[res];
+
+
+}
+void SUB(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int* reg3;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg3 = registers[res];
+
+
+}
+void SLL(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int* reg3;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg3 = registers[res];
+
+
+}
+void SLT(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int* reg3;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg3 = registers[res];
+
+
+}
+void SLTU(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int* reg3;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg3 = registers[res];
+
+
+}
+void XOR(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int* reg3;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg3 = registers[res];
+
+
+}
+void SRL(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int* reg3;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg3 = registers[res];
+
+
+}
+void SRA(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int* reg3;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg3 = registers[res];
+
+
+}
+void OR(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int* reg3;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg3 = registers[res];
+
+
+}
+void AND(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int* reg3;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg3 = registers[res];
+
+
+}
+void TERMINATE(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
+{
+	int* reg;
+	int* reg2;
+	int* reg3;
+	int immediate;
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg2 = registers[res];
+
+	while (res == "")
+	{
+		res = strtok_s(NULL, delim, &nextInstruction);
+	}
+	reg3 = registers[res];
+
+
 }
