@@ -7,6 +7,45 @@
 #include <map>
 using namespace std;
 
+void LUI(char* str, const char* delim, char* nextInstruction, map<string,vector<int>*> registers);
+void AUIPC(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void JAL(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void JALR(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void BEQ(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void BNE(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void BLT(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void BGE(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void BLTU(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void BGEU(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void LB(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void LH(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void LW(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void LBU(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void LHU(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void SB(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void SH(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void SW(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void ADDI(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void SLTI(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void SLTIU(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void XORI(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void ORI(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void ANDI(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void SLLI(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void SRLI(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void SRAI(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void ADD(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void SUB(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void SLL(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void SLT(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void SLTU(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void XOR(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void SRL(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void SRA(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void OR(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void AND(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+void TERMINATE(char* str, const char* delim, char* nextInstruction, map<string, vector<int>*> registers);
+
 int main()
 {
 	vector<string> instructions_string;
@@ -123,7 +162,7 @@ map<string, int> Get_Labels(vector<string>& instruction_string)
 	}
 	return labels;
 }
-vector<int[4]> Translate_Instructions(vector<string>& instruction_string, map<string,int>& instruction_set)
+vector<int[4]> Translate_Instructions(vector<string>& instruction_string, map<string,int>& instruction_set, map<string, vector<int>*> registers)
 {
 	char* str;
 	char* nextInstruction;
@@ -145,7 +184,129 @@ vector<int[4]> Translate_Instructions(vector<string>& instruction_string, map<st
 		arr[0] = instruction_set[res];
 		if (arr[0] != 0)
 		{
-
+			switch (arr[0])
+			{
+			case 1:
+				LUI(str, delim, nextInstruction, registers);
+				break;
+			case 2:
+				AUIPC(str, delim, nextInstruction, registers);
+				break;
+			case 3:
+				JAL(str, delim, nextInstruction, registers);
+				break;
+			case 4:
+				JALR(str, delim, nextInstruction, registers);
+				break;
+			case 5:
+				BEQ(str, delim, nextInstruction, registers);
+				break;
+			case 6:
+				BNE(str, delim, nextInstruction, registers);
+				break;
+			case 7:
+				BLT(str, delim, nextInstruction, registers);
+				break;
+			case 8:
+				BGE(str, delim, nextInstruction, registers);
+				break;
+			case 9:
+				BLTU(str, delim, nextInstruction, registers);
+				break;
+			case 10:
+				BGEU(str, delim, nextInstruction, registers);
+				break;
+			case 11:
+				LB(str, delim, nextInstruction, registers);
+				break;
+			case 12:
+				LH(str, delim, nextInstruction, registers);
+				break;
+			case 13:
+				LW(str, delim, nextInstruction, registers);
+				break;
+			case 14:
+				LBU(str, delim, nextInstruction, registers);
+				break;
+			case 15:
+				LHU(str, delim, nextInstruction, registers);
+				break;
+			case 16:
+				SB(str, delim, nextInstruction, registers);
+				break;
+			case 17:
+				SH(str, delim, nextInstruction, registers);
+				break;
+			case 18:
+				SW(str, delim, nextInstruction, registers);
+				break;
+			case 19:
+				ADDI(str, delim, nextInstruction, registers);
+				break;
+			case 20:
+				SLTI(str, delim, nextInstruction, registers);
+				break;
+			case 21:
+				SLTIU(str, delim, nextInstruction, registers);
+				break;
+			case 22:
+				XORI(str, delim, nextInstruction, registers);
+				break;
+			case 23:
+				ORI(str, delim, nextInstruction, registers);
+				break;
+			case 24:
+				ANDI(str, delim, nextInstruction, registers);
+				break;
+			case 25:
+				SLLI(str, delim, nextInstruction, registers);
+				break;
+			case 26:
+				SRLI(str, delim, nextInstruction, registers);
+				break;
+			case 27:
+				SRAI(str, delim, nextInstruction, registers);
+				break;
+			case 28:
+				ADD(str, delim, nextInstruction, registers);
+				break;
+			case 29:
+				SUB(str, delim, nextInstruction, registers);
+				break;
+			case 30:
+				SLL(str, delim, nextInstruction, registers);
+				break;
+			case 31:
+				SLT(str, delim, nextInstruction, registers);
+				break;
+			case 32:
+				SLTU(str, delim, nextInstruction, registers);
+				break;
+			case 33:
+				XOR(str, delim, nextInstruction, registers);
+				break;
+			case 34:
+				SRL(str, delim, nextInstruction, registers);
+				break;
+			case 35:
+				SRA(str, delim, nextInstruction, registers);
+				break;
+			case 36:
+				OR(str, delim, nextInstruction, registers);
+				break;
+			case 37:
+				AND(str, delim, nextInstruction, registers);
+				break;
+			case 38:
+				TERMINATE(str, delim, nextInstruction, registers);
+				break;
+			case 39:
+				TERMINATE(str, delim, nextInstruction, registers);
+				break;
+			case 40:
+				TERMINATE(str, delim, nextInstruction, registers);
+				break;
+			}
 		}
 		count++;
 		
