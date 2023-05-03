@@ -1,1 +1,2 @@
 C:\Users\focka\OneDrive\Documents\AUC Files\Computer Organisation and Assembly\RAWRS\x64\Debug\RAWRS.exe
+D:\academic\AUC\Spring 2023\CompOrg & Assm\RiscV-32I sim\x64\Debug\RAWRS.exe
