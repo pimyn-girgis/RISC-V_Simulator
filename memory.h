@@ -33,15 +33,18 @@ private:
 	long long int					size;							///	i.e 4GB has 0d1073741824 addressable 32bit words, or 0x40000000 in hex. so 
 																	///	this is initialized as the last addressable address in the memory
 
-	fs::path						writeFile;						//	AW: default file path for writing
+	fs::path*						writeFile;						//	AW: default file path for writing
+	fs::path*						initFile;						//	AW: default file path for initialisations
 
 public:
 
 	memory();
 	memory(std::map<int, int>* block, std::vector<int>* sectionAddresses, long int size, fs::path writeFile);
 
-	void set_writeFile(fs::path writeFile);
-	void get_writeFile(fs::path writeFile);
+	void					set_writeFile(fs::path* writeFile);
+	fs::path*				get_writeFile();
+	void					set_initFile(fs::path* initFile);
+	fs::path*				get_initFile();
 
 	/// AW: setters, getters used for GUI 
 	/// I am thinking for GUI we have a seperate memory GUI utilties file to output what we need in Qt using
@@ -49,18 +52,28 @@ public:
 	/// 
 	/// inits, printers, writers used for CLI
 	
-	std::pair<int, int>** parse_init_file();			//	parses text file, final output in an array of pair pointers
+	//	AW: parses text file, final output in an array of pair pointers, given a file path
+	std::pair<int, int>**	parse_init_file();			
 
-	void init_memory(std::pair<int, int>** );			/// Initializes memory given parsed memory initializations
-														///	parsed initializations stored in an array of pair pointers
-											
-	void print_memory(char printOption);				///	CLI
-														///	print option: according to the char we print in Hex, Dec
-														/// prints memory on console lol 
+	/// AW: Initializes memory given parsed memory initializations
+	///	parsed initializations stored in an array of pair pointers
+	void					init_memory( std::pair<int, int>** );			
 
-	void write_memory_to_file(char printOption);		///	CLI
-														/// print option: according to the char we print in Hex, Dec
-														///	writes to file path (member)
+	//	AW: writes given data to memory block member given address and data in a pair
+	void					memory_write( std::pair<int, int>* );			
+
+	//	AW: reads data given an address (basically a getter for data)
+	int						memory_read( int );								
+	
+	///	AW: CLI
+	///	print option: according to the char we print in Hex, Dec
+	/// prints memory on console lol 
+	void					print_memory( char printOption );				
+
+	///	AW: CLI
+	/// print option: according to the char we print in Hex, Dec
+	///	writes to file path (member)
+	void					write_memory_to_file( char printOption );	
 
 };
 
