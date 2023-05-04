@@ -22,8 +22,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="parser.cpp" />
     <ClCompile Include="memory.cpp" />
+    <ClCompile Include="genUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="genUtils.h" />
     <ClInclude Include="memory.h" />
     <ClInclude Include="parser.h" />
   </ItemGroup>
@@ -118,6 +120,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>/printf.h</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

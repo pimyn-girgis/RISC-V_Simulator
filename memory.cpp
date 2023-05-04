@@ -1,7 +1,7 @@
 
 #include "memory.h"
 
-//AW: i could parse and initialise immediately but i am chose to do it this way to so i have the parsed data accessible for the GUI
+//AW: i could parse and initialise immediately but i chose to do it this way to so i have the parsed data accessible for the GUI
 //AW: might put the return vector as member in the class w 5alas 
 
 addressDataPairs* memory::parse_init_file()
@@ -20,7 +20,7 @@ addressDataPairs* memory::parse_init_file()
 		while (getline(initFileStream, line))
 		{
 			//AW: ignore comments and go to next line
-			if (line[0] == '#' || line == "")
+			if (line[0] == '#' || line == "") 
 			{
 				continue;
 			}
@@ -72,7 +72,7 @@ addressDataPairs* memory::parse_init_file()
 
 void memory::init_memory(addressDataPairs* parsedPairs)
 {
-	for (std::pair<int, int>* j : *parsedPairs)
+	for (addressDataPair* j : *parsedPairs)
 	{
 		_block->insert(*j);
 	}
@@ -80,28 +80,64 @@ void memory::init_memory(addressDataPairs* parsedPairs)
 													
 void memory::print_memory(char printOption)
 {
-	for (std::pair<int, int> j : *_block)
+	for (addressDataPair j : *_block)
 	{
 		switch (printOption)
 		{
 		case ('x'):
-			printf("%x, %x\n", j.first, j.second);
+			printf("0x%08x, 0x%08x\n", j.first, j.second);
 			break;
 		case ('b'):
-			printf("%x, %x\n", j.first, j.second);
+			std::cout << "0b" << std::bitset<32>(j.first) << ", 0b" << std::bitset<32>(j.second) << '\n';
 			break;
 		case ('d'):
-			printf("%d, %d\n", j.first, j.second);
+			printf("0d%010d, 0d%010d\n", j.first, j.second);
 			break;
 		default:
-			printf("%x, %x\n", j.first, j.second);
+			printf("0x%08x, 0x%08x\n", j.first, j.second);
 		}
 	}
 }
 																									
 void memory::write_memory_to_file(char printOption)
 {
+	std::ofstream		writeFileStream;
+	char				line[72];			//AW: biggest is binary representation, 72 chars, could have done it differently tbh but this works ig
+	std::string			lineStr;			//AW: for binary
 
+	writeFileStream.open(*_writeFile);
+
+	if (writeFileStream.is_open())
+	{
+		for (addressDataPair j : *_block)
+		{
+			switch (printOption)
+			{
+			case ('x'):
+				sprintf_s(line, "0x%08x, 0x%08x\n", j.first, j.second);				
+				writeFileStream << line;
+
+				break;
+			case ('b'):
+				lineStr = "0b" + std::bitset<32>(j.first).to_string() + ", 0b" + std::bitset<32>(j.second).to_string() + '\n';
+				writeFileStream << lineStr;
+
+				break;
+			case ('d'):
+				sprintf_s(line, "0d%010d, 0d%010d\n", j.first, j.second);
+				writeFileStream << line;
+
+				break;
+			default:
+				sprintf_s(line, "0x%08x, 0x%08x\n", j.first, j.second);
+				writeFileStream << line;
+			}
+		}
+	}
+	else
+	{
+		printf("unable to open file");
+	}
 }
 
 int memory::read_from_memory(int address)
@@ -119,10 +155,10 @@ memory::memory()
 	_block = new std::map<int,int>();
 	_sectionAddresses = new std::map<std::string, int>();
 	_size = 0;
-	fs::path* wF = new fs::path(u8"\\RAWRS_write.txt");
-	fs::path* iF = new fs::path(u8"\\RAWRS_init.txt");
-	_writeFile = wF;				//by default the writeFile will be RAWRS_write
-	_initFile = iF;				//by default the initFile will be RAWRS_init
+	fs::path* wF = new fs::path(u8"RAWRS_write.txt");
+	fs::path* iF = new fs::path(u8"RAWRS_init.txt");
+	_writeFile = wF;									//by default the writeFile will be RAWRS_write
+	_initFile = iF;										//by default the initFile will be RAWRS_init
 
 }
 

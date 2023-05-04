@@ -1,8 +1,4 @@
 ﻿  main.cpp
 D:\academic\AUC\Spring 2023\CompOrg & Assm\RiscV-32I sim\main.cpp(24,25): warning C4129: 'R': unrecognized character escape sequence
-  memory.cpp
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RiscV-32I sim\memory.cpp(91,11): warning C4476: 'printf' : unknown type field character 'b' in format specifier
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RiscV-32I sim\memory.cpp(91,24): warning C4474: 'printf' : too many arguments passed for format string
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RiscV-32I sim\memory.cpp(91,24): message : placeholders and their parameters expect 0 variadic arguments, but 2 were provided
-  Generating Code...
+D:\academic\AUC\Spring 2023\CompOrg & Assm\RiscV-32I sim\main.cpp(25,26): warning C4129: 'R': unrecognized character escape sequence
   RAWRS.vcxproj -> D:\academic\AUC\Spring 2023\CompOrg & Assm\RiscV-32I sim\x64\Debug\RAWRS.exe

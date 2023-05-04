@@ -24,12 +24,18 @@
     <ClCompile Include="memory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="genUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="parser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="memory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="genUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

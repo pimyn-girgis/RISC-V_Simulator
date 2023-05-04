@@ -22,13 +22,19 @@ void memoryTest()
 {
 	memory*		RISC_4GB = new memory();
 	string		initFileTest = "\RAWRS_init.txt";
-	fs::path* initFilePath = new fs::path(initFileTest);
+	string		writeFileTest = "\RAWRS_write.txt";
+	fs::path*	initFilePath = new fs::path(initFileTest);
+	fs::path*	writeFilePath = new fs::path(writeFileTest);
+	int			buffer;
 
 	RISC_4GB->set_initFile(initFilePath);
+	RISC_4GB->set_writeFile(writeFilePath);
 	RISC_4GB->init_memory(RISC_4GB->parse_init_file());
-	RISC_4GB->print_memory('x');
-	RISC_4GB->print_memory('b');
-	RISC_4GB->print_memory('d');
+	RISC_4GB->write_memory_to_file('x');
+	cin >> buffer;
+	RISC_4GB->write_memory_to_file('b');
+	cin >> buffer;
+	RISC_4GB->write_memory_to_file('d');
 }
 
 int main()

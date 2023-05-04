@@ -8,6 +8,7 @@
 #include <map>
 #include <vector>
 #include <filesystem>	//	AW: supposedly cross platform, (C++ 17)+ standard, paths covertible to string so this is very neat
+#include <bitset>
 
 #define	 addressDataPair	std::pair<int,int>
 #define	 addressDataPairs	std::vector<std::pair<int, int>*>
@@ -34,8 +35,9 @@ private:
 	std::map<int, int>*				_block;							//	AW: memory block, address as key, data as value
 	std::map<std::string, int>*		_sectionAddresses;				//	AW: section labels, string is label .i.e .data and key, address as the value
 
-	long long int					_size;							///	i.e 4GB has 0d1073741824 addressable 32bit words, or 0x40000000 in hex. so 
+	long long int					_size;							///	AW: i.e. 4GB has 0d1073741824 addressable 32bit words, or 0x40000000 in hex. so 
 																	///	this is initialized as the last addressable address in the memory
+																	/// will be useful for validation
 
 	fs::path*						_writeFile;						//	AW: default file path for writing
 	fs::path*						_initFile;						//	AW: default file path for initialisations
@@ -62,23 +64,23 @@ public:
 
 	/// AW: Initializes memory given parsed memory initializations
 	///	parsed initializations stored in an array of pair pointers  
-	void			init_memory(addressDataPairs*);
+	void					init_memory(addressDataPairs*);
 
 	//	AW: writes given data to memory block member given address and data in a pair
-	void			write_to_memory(addressDataPair*);
+	void					write_to_memory(addressDataPair*);
 
 	//	AW: reads data given an address (basically a getter for data)
-	int				read_from_memory(int);
+	int						read_from_memory(int);
 	
 	///	AW: CLI
 	///	print option: according to the char we print in Hex, Dec
 	/// prints memory on console lol 
-	void			print_memory(char printOption);
+	void					print_memory(char printOption);
 
 	///	AW: CLI
 	/// print option: according to the char we print in Hex, Dec
 	///	writes to file path (member)
-	void			write_memory_to_file(char printOption);
+	void					write_memory_to_file(char printOption);
 
 };
 
