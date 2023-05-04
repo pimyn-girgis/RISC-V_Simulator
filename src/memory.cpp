@@ -162,7 +162,7 @@ memory::memory()
 
 }
 
-memory::memory(std::map<int, int>* b, std::map<std::string, int>* sA, long int s, fs::path* wF, fs::path* iF)
+memory::memory(std::map<int, int>* b, sectionAddresses* sA, long int s, fs::path* wF, fs::path* iF)
 {
 	_block = b;
 	_sectionAddresses = sA;

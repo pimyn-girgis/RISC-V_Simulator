@@ -13,19 +13,25 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\src">
+      <UniqueIdentifier>{e5e31582-d178-4131-927e-b072a477e2bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\bin">
+      <UniqueIdentifier>{2eb3d590-473c-4d22-996c-537c1e53a281}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="genUtils.cpp">
+      <Filter>Source Files\src</Filter>
     </ClCompile>
-    <ClCompile Include="parser.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files\src</Filter>
     </ClCompile>
     <ClCompile Include="memory.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\src</Filter>
     </ClCompile>
-    <ClCompile Include="genUtils.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="parser.cpp">
+      <Filter>Source Files\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -40,7 +46,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="RAWRS_init.txt" />
-    <Text Include="RAWRS_write.txt" />
+    <Text Include="RAWRS_init.txt">
+      <Filter>Source Files\bin</Filter>
+    </Text>
+    <Text Include="RAWRS_write.txt">
+      <Filter>Source Files\bin</Filter>
+    </Text>
   </ItemGroup>
 </Project>
