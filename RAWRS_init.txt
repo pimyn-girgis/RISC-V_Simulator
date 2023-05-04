@@ -1,0 +1,15 @@
+#
+#	hashtags ignored
+#
+#
+#	general format in HEX:
+#	<address2>, <data>
+#	<address2>, <data>
+#	i.e:
+#	
+#	0x04000400, 0xABCDEFAB
+#
+
+0x04000400, 0xABCDEFAB
+0x00000000, 0x0000BBBB
+0x01010101, 0x00101001

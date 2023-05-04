@@ -27,6 +27,9 @@
     <ClInclude Include="memory.h" />
     <ClInclude Include="parser.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="RAWRS_init.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

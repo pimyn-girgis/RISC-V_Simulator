@@ -1,13 +1,4 @@
-﻿  parser.cpp
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RiscV-32I sim\parser.cpp(969,6): warning C4101: 'immediate': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RiscV-32I sim\parser.cpp(995,6): warning C4101: 'immediate': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RiscV-32I sim\parser.cpp(1021,6): warning C4101: 'immediate': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RiscV-32I sim\parser.cpp(1047,6): warning C4101: 'immediate': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RiscV-32I sim\parser.cpp(1073,6): warning C4101: 'immediate': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RiscV-32I sim\parser.cpp(1099,6): warning C4101: 'immediate': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RiscV-32I sim\parser.cpp(1125,6): warning C4101: 'immediate': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RiscV-32I sim\parser.cpp(1151,6): warning C4101: 'immediate': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RiscV-32I sim\parser.cpp(1177,6): warning C4101: 'immediate': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RiscV-32I sim\parser.cpp(1203,6): warning C4101: 'immediate': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RiscV-32I sim\parser.cpp(1229,6): warning C4101: 'immediate': unreferenced local variable
+﻿  main.cpp
+  memory.cpp
+  Generating Code...
   RAWRS.vcxproj -> D:\academic\AUC\Spring 2023\CompOrg & Assm\RiscV-32I sim\x64\Debug\RAWRS.exe

@@ -1,6 +1,7 @@
 
 #include "parser.h"
-
+#include "memory.h"
+namespace fs = std::filesystem;
 
 //	AW: encapsulated your testing code here so i can test without your code running :swagger:
 void parseTest()
@@ -19,7 +20,15 @@ void parseTest()
 
 void memoryTest()
 {
-	
+	memory*		RISC_4GB = new memory();
+	string		initFileTest = "\\RAWRS_init.txt";
+	fs::path* initFilePath = new fs::path(initFileTest);
+
+	RISC_4GB->set_initFile(initFilePath);
+	RISC_4GB->init_memory(RISC_4GB->parse_init_file());
+	RISC_4GB->print_memory('x');
+	RISC_4GB->print_memory('b');
+	RISC_4GB->print_memory('d');
 }
 
 int main()
@@ -27,6 +36,6 @@ int main()
 	
 	memoryTest();
 
-	return 0;
+	return		0;
 }
 

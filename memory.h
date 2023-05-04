@@ -17,12 +17,12 @@ namespace fs = std::filesystem;
 ///		register class inherits the basic functions from the memory such as printing/etc
 ///		register object has empty section map
 ///		
-///		What it should does as a blackbox:	write to memory 
+///		What it should do as a blackbox:	write to memory 
 ///											read from memory
 ///											initialize a memory object and you can section it off, etc
 ///											check which section your address belongs to 
 ///											print on .txt, console
-///											
+///											anything else?
 
 class memory
 {
@@ -39,7 +39,7 @@ private:
 public:
 
 	memory();
-	memory(std::map<int, int>* block, std::vector<int>* sectionAddresses, long int size, fs::path writeFile);
+	memory(std::map<int, int>* block, std::map<std::string, int>* sectionAddresses, long int size, fs::path* writeFile, fs::path* initFile);
 
 	void					set_writeFile(fs::path* writeFile);
 	fs::path*				get_writeFile();
@@ -57,23 +57,23 @@ public:
 
 	/// AW: Initializes memory given parsed memory initializations
 	///	parsed initializations stored in an array of pair pointers
-	void					init_memory( std::pair<int, int>** );			
+	void					init_memory(std::pair<int, int>**);
 
 	//	AW: writes given data to memory block member given address and data in a pair
-	void					memory_write( std::pair<int, int>* );			
+	void					write_to_memory(std::pair<int, int>*);
 
 	//	AW: reads data given an address (basically a getter for data)
-	int						memory_read( int );								
+	int						read_from_memory(int);
 	
 	///	AW: CLI
 	///	print option: according to the char we print in Hex, Dec
 	/// prints memory on console lol 
-	void					print_memory( char printOption );				
+	void					print_memory(char printOption);
 
 	///	AW: CLI
 	/// print option: according to the char we print in Hex, Dec
 	///	writes to file path (member)
-	void					write_memory_to_file( char printOption );	
+	void					write_memory_to_file(char printOption);
 
 };
 
