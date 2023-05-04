@@ -35,5 +35,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="RAWRS_init.txt" />
+    <Text Include="RAWRS_write.txt" />
   </ItemGroup>
 </Project>

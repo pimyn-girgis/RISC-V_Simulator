@@ -1,1 +1,2 @@
 May 1 8:11 pm: implemented a tokenization system for text extraction
+May 4 3:51 am: implemented a base for memory class
