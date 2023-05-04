@@ -1,6 +1,6 @@
 #
 #	hashtags ignored
-#
+#	they're comments
 #
 #	general format in HEX:
 #	<address2>, <data>
@@ -8,7 +8,12 @@
 #	i.e:
 #	
 #	0x04000400, 0xABCDEFAB
+#		
+#	in BIN:
+#	0b<address in BIN>, <data in BIN>
 #
+#	in DEC:
+#	0d<address in DEC>, <data in DEC>
 
 0x04000400, 0xABCDEFAB
 0x00000000, 0x0000BBBB
