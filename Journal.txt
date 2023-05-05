@@ -1,5 +1,5 @@
-May 1 8:11 pm Magd:		implemented a tokenization system for text extraction
-May 4 3:51 am Ahmed:	implemented a base for memory class
-May 4 7:51 pm Ahmed:	completed parsing for memory initialisation, printing on console
-May 5 1:51 pm Ahmed:	completed memory class write to file, padding for printing/write
-May 5 6:01 pm Bemen:  Made code cross_platform and fixed some general errors
+May 1 8:11 pm Magd :    implemented a tokenization system for text extraction
+May 4 3:51 am Ahmed:    implemented a base for memory class
+May 4 7:51 pm Ahmed:    completed parsing for memory initialisation, printing on console
+May 5 1:51 pm Ahmed:    completed memory class write to file, padding for printing/write
+May 5 6:01 pm Bemen:    Made code cross_platform and fixed some general errors
