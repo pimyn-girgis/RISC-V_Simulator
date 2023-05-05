@@ -21,8 +21,8 @@ void parseTest()
 void memoryTest()
 {
 	memory*		RISC_4GB = new memory();
-	string		initFileTest = "\RAWRS_init.txt";
-	string		writeFileTest = "\RAWRS_write.txt";
+	string		initFileTest = "./bin/RAWRS_init.txt";
+	string		writeFileTest = "./bin/RAWRS_write.txt";
 	fs::path*	initFilePath = new fs::path(initFileTest);
 	fs::path*	writeFilePath = new fs::path(writeFileTest);
 	int			buffer;

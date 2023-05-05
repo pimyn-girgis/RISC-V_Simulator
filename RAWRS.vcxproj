@@ -19,19 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="parser.cpp" />
-    <ClCompile Include="memory.cpp" />
-    <ClCompile Include="genUtils.cpp" />
+    <ClCompile Include="src\genUtils.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\memory.cpp" />
+    <ClCompile Include="src\parser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="genUtils.h" />
-    <ClInclude Include="memory.h" />
-    <ClInclude Include="parser.h" />
+    <ClInclude Include="src\genUtils.h" />
+    <ClInclude Include="src\memory.h" />
+    <ClInclude Include="src\parser.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="RAWRS_init.txt" />
-    <Text Include="RAWRS_write.txt" />
+    <Text Include="bin\RAWRS_init.txt" />
+    <Text Include="bin\RAWRS_write.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

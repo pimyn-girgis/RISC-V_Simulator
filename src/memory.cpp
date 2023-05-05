@@ -153,7 +153,7 @@ void memory::write_to_memory(addressDataPair* data)
 memory::memory()
 {
 	_block = new std::map<int,int>();
-	_sectionAddresses = new std::map<std::string, int>();
+	_sectionAddresses = new std::map<char*, int>();
 	_size = 0;
 	fs::path* wF = new fs::path(u8"RAWRS_write.txt");
 	fs::path* iF = new fs::path(u8"RAWRS_init.txt");
@@ -199,4 +199,19 @@ void memory::set_initFile(fs::path* iF)
 fs::path* memory::get_initFile()
 {
 	return _initFile;
+}
+
+void memory::set_sectionAddresses(sectionAddresses* sA)
+{
+	_sectionAddresses = sA;
+}
+
+bool memory::is_address_valid(int address, char* section)
+{
+	return true;
+}
+
+bool memory::is_address_valid(int address)
+{
+	return true;
 }
