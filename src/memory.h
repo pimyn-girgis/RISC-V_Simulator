@@ -8,13 +8,14 @@
 #include <fstream>
 #include <map>
 #include <vector>
+#include <utility>
 #include <filesystem>	//	AW: supposedly cross platform, (C++ 17)+ standard, paths covertible to string so this is very neat
 #include <bitset>
 
 
 #define	 addressDataPair	std::pair<int,int>
 #define	 addressDataPairs	std::vector<std::pair<int, int>*>
-#define	 sectionAddresses	std::map<char*, int>
+#define	 sectionAddresses	std::vector<std::pair<const char*, int>>
 
 namespace fs = std::filesystem;
 

@@ -153,10 +153,10 @@ void memory::write_to_memory(addressDataPair* data)
 memory::memory()
 {
 	_block = new std::map<int,int>();
-	_sectionAddresses = new std::map<char*, int>();
+	_sectionAddresses = new sectionAddresses();
 	_size = 0;
-	fs::path* wF = new fs::path(u8"RAWRS_write.txt");
-	fs::path* iF = new fs::path(u8"RAWRS_init.txt");
+	fs::path* wF = new fs::path(u8"bin/RAWRS_write.txt");
+	fs::path* iF = new fs::path(u8"bin/RAWRS_init.txt");
 	_writeFile = wF;									//by default the writeFile will be RAWRS_write
 	_initFile = iF;										//by default the initFile will be RAWRS_init
 
@@ -208,10 +208,23 @@ void memory::set_sectionAddresses(sectionAddresses* sA)
 
 bool memory::is_address_valid(int address, char* section)
 {
-	return true;
+	// get position of section in sectionAddresses
+	for (auto sec = _sectionAddresses->begin(); sec != _sectionAddresses->end(); ++sec)
+	{
+		if (!strcmp(sec->first, section))
+		{
+			// check if address is in range
+			return address >= sec->second && (
+				sec == _sectionAddresses->end() - 1 ?
+				this->is_address_valid(address) :
+				address < (sec + 1)->second );
+		}
+	}
+
+	return this->is_address_valid(address);
 }
 
 bool memory::is_address_valid(int address)
 {
-	return true;
+	return address >= 0 && address < _size;
 }
