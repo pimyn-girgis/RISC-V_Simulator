@@ -89,10 +89,10 @@ map<char*, int> Get_Labels(vector<string>& instruction_string)
 		if (temp.at(temp.size() - 1) == ':') //delete leading spaces and label
 		{
 			str = &temp[0];
-			res = strtok_s(str, " ", &nextInstruction);
-			while (res == "" && res != NULL)
+			res = strtok(str, " ");
+			while (res && !*res)
 			{
-				res = strtok_s(NULL, " ", &nextInstruction);
+				res = strtok(NULL, " ");
 			}
 			labels.insert({ res,i });
 			instruction_string[i].erase(0, temp.length());
@@ -115,14 +115,14 @@ map<char*, int> Get_Labels(vector<string>& instruction_string)
 	}
 	return labels;
 }
-vector<int[4]> Translate_Instructions(vector<string>& instruction_string, map<string, int>& instruction_set, map<char*, int*> registers)
+vector<array<int, 4>> Translate_Instructions(vector<string>& instruction_string, map<string, int>& instruction_set, map<char*, int*> registers)
 {
 	char* str;
 	char* nextInstruction;
 	char* res;
 	const char* delim = " ,()";
 	int count;
-	vector<int[4]> instructions;
+	vector<array<int, 4>> instructions;
 	int arr[4];
 	for (int i = 0; i < instruction_string.size(); i++)
 	{
@@ -133,7 +133,7 @@ vector<int[4]> Translate_Instructions(vector<string>& instruction_string, map<st
 		count = 0;
 		str = &instruction_string[i][0];
 		str[instruction_string[i].length()] = '\0';
-		res = strtok_s(str, delim, &nextInstruction);
+		res = strtok(str, delim);
 		arr[0] = instruction_set[res];
 		if (arr[0] != 0)
 		{
@@ -273,27 +273,27 @@ vector<int[4]> Translate_Instructions(vector<string>& instruction_string, map<st
 
 void LUI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
 {
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	int immediate = atoi(res);
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	int* reg = registers[res];
 }
 void AUIPC(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
 {
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	int immediate = atoi(res);
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	int* reg = registers[res];
 
@@ -304,22 +304,22 @@ void JAL(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg2;
 	int immediate;
 	int line;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 
 	reg = registers[res];
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	if (res[0] < '0' || res[0]>'9') //offset address system
 	{
 		immediate = atoi(res);
-		while (res == "")
+		while (res && !*res)
 		{
-			res = strtok_s(NULL, delim, &nextInstruction);
+			res = strtok(NULL, delim);
 		}
 		reg2 = registers[res];
 
@@ -335,22 +335,22 @@ void JALR(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg2;
 	int immediate;
 	int line;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 
 	reg = registers[res];
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	if (res[0] < '0' || res[0]>'9') //offset address system
 	{
 		immediate = atoi(res);
-		while (res == "")
+		while (res && !*res)
 		{
-			res = strtok_s(NULL, delim, &nextInstruction);
+			res = strtok(NULL, delim);
 		}
 		reg2 = registers[res];
 
@@ -366,21 +366,21 @@ void BEQ(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg2;
 	int immediate;
 	int line;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	if (res[0] < '0' || res[0]>'9') //offset address system
 	{
@@ -398,21 +398,21 @@ void BNE(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg2;
 	int immediate;
 	int line;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	if (res[0] < '0' || res[0]>'9') //offset address system
 	{
@@ -430,21 +430,21 @@ void BLT(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg2;
 	int immediate;
 	int line;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	if (res[0] < '0' || res[0]>'9') //offset address system
 	{
@@ -462,21 +462,21 @@ void BGE(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg2;
 	int immediate;
 	int line;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	if (res[0] < '0' || res[0]>'9') //offset address system
 	{
@@ -494,21 +494,21 @@ void BLTU(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg2;
 	int immediate;
 	int line;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	if (res[0] < '0' || res[0]>'9') //offset address system
 	{
@@ -526,21 +526,21 @@ void BGEU(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg2;
 	int immediate;
 	int line;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	if (res[0] < '0' || res[0]>'9') //offset address system
 	{
@@ -557,21 +557,21 @@ void LB(char* res, char* str, const char* delim, char* nextInstruction, map<char
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	immediate = atoi(res);
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 }
@@ -580,21 +580,21 @@ void LH(char* res, char* str, const char* delim, char* nextInstruction, map<char
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	immediate = atoi(res);
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 }
@@ -603,21 +603,21 @@ void LW(char* res, char* str, const char* delim, char* nextInstruction, map<char
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	immediate = atoi(res);
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 }
@@ -626,21 +626,21 @@ void LBU(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	immediate = atoi(res);
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 }
@@ -649,21 +649,21 @@ void LHU(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	immediate = atoi(res);
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 }
@@ -672,21 +672,21 @@ void SB(char* res, char* str, const char* delim, char* nextInstruction, map<char
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	immediate = atoi(res);
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 }
@@ -695,21 +695,21 @@ void SH(char* res, char* str, const char* delim, char* nextInstruction, map<char
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	immediate = atoi(res);
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 }
@@ -718,21 +718,21 @@ void SW(char* res, char* str, const char* delim, char* nextInstruction, map<char
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	immediate = atoi(res);
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 }
@@ -741,21 +741,21 @@ void ADDI(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	immediate = atoi(res);
 
@@ -766,21 +766,21 @@ void SLTI(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	immediate = atoi(res);
 
@@ -791,21 +791,21 @@ void SLTIU(char* res, char* str, const char* delim, char* nextInstruction, map<c
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	immediate = atoi(res);
 
@@ -816,21 +816,21 @@ void XORI(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	immediate = atoi(res);
 
@@ -841,21 +841,21 @@ void ORI(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	immediate = atoi(res);
 
@@ -866,21 +866,21 @@ void ANDI(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	immediate = atoi(res);
 
@@ -891,21 +891,21 @@ void SLLI(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	immediate = atoi(res);
 
@@ -916,21 +916,21 @@ void SRLI(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	immediate = atoi(res);
 
@@ -941,21 +941,21 @@ void SRAI(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	immediate = atoi(res);
 
@@ -967,21 +967,21 @@ void ADD(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg2;
 	int* reg3;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg3 = registers[res];
 
@@ -993,21 +993,21 @@ void SUB(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg2;
 	int* reg3;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg3 = registers[res];
 
@@ -1019,21 +1019,21 @@ void SLL(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg2;
 	int* reg3;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg3 = registers[res];
 
@@ -1045,21 +1045,21 @@ void SLT(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg2;
 	int* reg3;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg3 = registers[res];
 
@@ -1071,21 +1071,21 @@ void SLTU(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg2;
 	int* reg3;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg3 = registers[res];
 
@@ -1097,21 +1097,21 @@ void XOR(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg2;
 	int* reg3;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg3 = registers[res];
 
@@ -1123,21 +1123,21 @@ void SRL(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg2;
 	int* reg3;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg3 = registers[res];
 
@@ -1149,21 +1149,21 @@ void SRA(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg2;
 	int* reg3;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg3 = registers[res];
 
@@ -1175,21 +1175,21 @@ void OR(char* res, char* str, const char* delim, char* nextInstruction, map<char
 	int* reg2;
 	int* reg3;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg3 = registers[res];
 
@@ -1201,21 +1201,21 @@ void AND(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg2;
 	int* reg3;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg3 = registers[res];
 
@@ -1227,21 +1227,21 @@ void TERMINATE(char* res, char* str, const char* delim, char* nextInstruction, m
 	int* reg2;
 	int* reg3;
 	int immediate;
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg2 = registers[res];
 
-	while (res == "")
+	while (res && !*res)
 	{
-		res = strtok_s(NULL, delim, &nextInstruction);
+		res = strtok(NULL, delim);
 	}
 	reg3 = registers[res];
 

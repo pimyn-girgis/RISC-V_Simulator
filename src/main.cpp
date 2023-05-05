@@ -7,7 +7,7 @@ namespace fs = std::filesystem;
 void parseTest()
 {
 	vector<string> instructions_string;
-	vector<int[4]> instructions;
+	vector<array<int, 4>> instructions;
 	map<char*, int> labels;
 	map<string, int>instruction_set;
 	map<char*, int*> registers;

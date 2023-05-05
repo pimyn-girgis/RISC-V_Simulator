@@ -1,3 +1,9 @@
+# VSCode
+.vscode
+*vc*
+x64/
+*.sln
+
 # Prerequisites
 *.d
 

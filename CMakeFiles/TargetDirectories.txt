@@ -1,0 +1,3 @@
+/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/CMakeFiles/RISC-V_Simulator.dir
+/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/CMakeFiles/edit_cache.dir
+/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/CMakeFiles/rebuild_cache.dir

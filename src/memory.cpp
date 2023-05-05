@@ -114,7 +114,7 @@ void memory::write_memory_to_file(char printOption)
 			switch (printOption)
 			{
 			case ('x'):
-				sprintf_s(line, "0x%08x, 0x%08x\n", j.first, j.second);				
+				sprintf(line, "0x%08x, 0x%08x\n", j.first, j.second);				
 				writeFileStream << line;
 
 				break;
@@ -124,12 +124,12 @@ void memory::write_memory_to_file(char printOption)
 
 				break;
 			case ('d'):
-				sprintf_s(line, "0d%010d, 0d%010d\n", j.first, j.second);
+				sprintf(line, "0d%010d, 0d%010d\n", j.first, j.second);
 				writeFileStream << line;
 
 				break;
 			default:
-				sprintf_s(line, "0x%08x, 0x%08x\n", j.first, j.second);
+				sprintf(line, "0x%08x, 0x%08x\n", j.first, j.second);
 				writeFileStream << line;
 			}
 		}
