@@ -118,7 +118,7 @@ map<char*, int> Get_Labels(vector<string>& instruction_string)
 vector<array<int, 4>> Translate_Instructions(vector<string>& instruction_string, map<string, int>& instruction_set, map<char*, int*> registers)
 {
 	char* str;
-	char* nextInstruction;
+	char* nextInstruction = {};
 	char* res;
 	const char* delim = " ,()";
 	int count;
@@ -140,10 +140,11 @@ vector<array<int, 4>> Translate_Instructions(vector<string>& instruction_string,
 			switch (arr[0])
 			{
 			case 1:
-				LUI(res, str, delim, nextInstruction, registers);
+				//AW:  unintialized variable nextInstruction
+				//E: LUI(res, str, delim, nextInstruction, registers);
 				break;
 			case 2:
-				AUIPC(res, str, delim, nextInstruction, registers);
+				//E: AUIPC(res, str, delim, nextInstruction, registers);
 				break;
 			case 3:
 				//E: JAL(res, str, delim, nextInstruction, registers);

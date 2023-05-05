@@ -1,4 +1,4 @@
-
+#define  _CRT_SECURE_NO_WARNINGS
 #include "parser.h"
 #include "memory.h"
 namespace fs = std::filesystem;

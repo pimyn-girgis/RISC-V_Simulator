@@ -1,5 +1,6 @@
 #pragma once
 
+#define  _CRT_SECURE_NO_WARNINGS
 #ifndef MEMORY_H
 #define	MEMORY_H
 
@@ -9,6 +10,7 @@
 #include <vector>
 #include <filesystem>	//	AW: supposedly cross platform, (C++ 17)+ standard, paths covertible to string so this is very neat
 #include <bitset>
+
 
 #define	 addressDataPair	std::pair<int,int>
 #define	 addressDataPairs	std::vector<std::pair<int, int>*>

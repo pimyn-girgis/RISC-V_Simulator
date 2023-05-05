@@ -3,6 +3,7 @@
 
 #ifndef PARSER_H
 #define PARSER_H
+#define  _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
 #include <fstream>
@@ -11,6 +12,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <array>
 
 using namespace std;
 

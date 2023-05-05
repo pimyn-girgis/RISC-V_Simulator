@@ -12,13 +12,6 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 
-# VSCode
-.vs/
-.vscode
-*vc*
-x64/
-*.sln
-
 # Prerequisites
 *.d
 

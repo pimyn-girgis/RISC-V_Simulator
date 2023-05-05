@@ -1,4 +1,4 @@
-
+#define  _CRT_SECURE_NO_WARNINGS
 #include "memory.h"
 
 //AW: i could parse and initialise immediately but i chose to do it this way to so i have the parsed data accessible for the GUI
