@@ -52,12 +52,112 @@ map<string, int>Set_Instruction_Set()
 map<char*, int*> set_registers()
 {
 	map<char*, int*> registers;
-	vector<int*> registers_vec(32);
+	//this part deals with the x0...x31 way of calling registers
+	char x = 'x';
+	char* regs = new char[3];
+	regs[0] = x;
+	regs[3] = '\0';
+	vector<int*> registers_vec(33);
 	for (int i = 0; i < registers_vec.size(); i++)
 	{
 		*registers_vec[i] = 0;
 	}
-	//E: registers.insert({ "x1",registers_vec[0] });
+
+	for (int i = 0; i < 10; i++)
+	{
+		regs[1] = i + '0';
+		registers.insert({ regs,registers_vec[i] });
+	}
+	delete[] regs;
+	char* regs = new char[4];
+	regs[0] = x;
+	regs[3] = '\0';
+	regs[1] = '1';
+	for (int i = 0; i < 10; i++)
+	{
+		regs[2] = i + '0';
+		registers.insert({ regs,registers_vec[i+10] });
+	}
+	regs[1] = '2';
+	for (int i = 0; i < 10; i++)
+	{
+		regs[2] = i + '0';
+		registers.insert({ regs,registers_vec[i + 20] });
+	}
+	regs[1] = '3';
+	for (int i = 0; i < 2; i++)
+	{
+		regs[2] = i + '0';
+		registers.insert({ regs,registers_vec[i + 30] });
+	}
+
+
+	//this part deals with alternative naming
+	//s10 and s11
+	regs[0] = 's';
+	regs[1] = '1';
+	regs[2] = '0';
+	registers.insert({ regs,registers_vec[26] });
+	regs[2] = '1';
+	registers.insert({ regs,registers_vec[27] });
+	delete[] regs;
+	char* regs = new char[3];
+	//ra
+	regs[0] = 'r';
+	regs[1] = 'a';
+	regs[2] = '\0';
+	registers.insert({ regs,registers_vec[1] });
+	//sp
+	regs[0] = 's';
+	regs[1] = 'p';
+
+	registers.insert({ regs,registers_vec[2] });
+	//gp
+	regs[0] = 'g';
+	regs[1] = 'p';
+
+	registers.insert({ regs,registers_vec[3] });
+	//tp
+	regs[0] = 't';
+	regs[1] = 'p';
+
+	registers.insert({ regs,registers_vec[4] });
+	//t0-t2
+	for (int i = 0; i < 3; i++)
+	{
+		regs[1] = i + '0';
+		registers.insert({ regs,registers_vec[5 + i] });
+	}
+	//t3-t6
+	for (int i = 0; i < 4; i++)
+	{
+		regs[1] = i + 3 + '0';
+		registers.insert({ regs,registers_vec[28 + i] });
+	}
+	//s0 and s1
+	regs[0] = 's';
+	for (int i = 0; i < 2; i++)
+	{
+		regs[1] = i + '0';
+		registers.insert({ regs,registers_vec[8 + i] });
+	}
+	//s2 - s9
+	for (int i = 0; i < 8; i++)
+	{
+		regs[1] = i + 2 + '0';
+		registers.insert({ regs,registers_vec[18 + i] });
+	}
+	//a0-a7
+	regs[0] = 'a';
+	for (int i = 0; i < 8; i++)
+	{
+		regs[1] = i + '0';
+		registers.insert({ regs,registers_vec[10 + i] });
+	}
+	//pc
+	regs[0] = 'p';
+	regs[1] = 'c';
+	registers.insert({ regs,registers_vec[32] });
 
 	return registers;
 }
