@@ -215,7 +215,7 @@ map<char*, int> Get_Labels(vector<string>& instruction_string)
 	}
 	return labels;
 }
-vector<array<int, 4>> Translate_Instructions(vector<string>& instruction_string, map<string, int>& instruction_set, map<char*, int*> registers)
+void Translate_Instructions(vector<string>& instruction_string, map<string, int>& instruction_set, map<char*, int*> registers)
 {
 	char* str;
 	char* nextInstruction = {};

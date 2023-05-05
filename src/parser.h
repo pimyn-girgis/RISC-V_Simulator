@@ -24,7 +24,7 @@ map<string, int>Set_Instruction_Set();
 map<char*, int*> set_registers();
 vector<string> Get_Instructions();
 map<char*, int> Get_Labels(vector<string>& instruction_string);
-vector<array<int, 4>> Translate_Instructions(vector<string>& instruction_string, map<string, int>& instruction_set, map<char*, int*> registers);
+void Translate_Instructions(vector<string>& instruction_string, map<string, int>& instruction_set, map<char*, int*> registers);
 
 //	Instruction parsers Declarations	//
 void LUI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);
