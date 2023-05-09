@@ -20,8 +20,8 @@ struct instruction {
 class riscv
 {
 private:
-    memory mem();
-    memory reg();
+    memory mem;
+    memory reg;
     std::unordered_map<std::string, int> instruction_set;
     std::vector<instruction> instructions;
 	std::unordered_map<std::string, int> registers;
@@ -67,5 +67,6 @@ public:
     int parse_instruction(const std::string &instruction); // returns the machine code for the instruction
     void read_program(const std::string &filename); // reads a file and adds instructions to the instructions vector
     const std::vector<instruction> &get_instructions();
-    riscv(); // define
+    riscv(fs::path *mem_init_file, fs::path *mem_write_file,
+	  fs::path *reg_init_file, fs::path *reg_write_file);
 };
