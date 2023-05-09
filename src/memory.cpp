@@ -229,7 +229,9 @@ bool memory::is_address_valid(int address)
 	return address >= 0 && address < _size;
 }
 
-memory::memory(int size) : memory()
+memory::memory(int size, fs::path* init_file, fs::path* write_file) : memory()
 {
 	_size = size;
+	set_initFile(init_file);
+	set_writeFile(write_file);
 }

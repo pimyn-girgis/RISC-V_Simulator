@@ -50,7 +50,7 @@ private:
 public:
 
 	memory();
-	memory(int size);
+	memory(int size, fs::path *init_file, fs::path *write_file);
 	memory(std::map<int, int>* block, sectionAddresses* sA, long int size, fs::path* writeFile, fs::path* initFile);
 	~memory();
 
@@ -67,7 +67,7 @@ public:
 	/// inits, printers, writers used for CLI
 	
 	//	AW: parses text file, final output in an array of pair pointers, given a file path
-	addressDataPairs*		parse_init_file();
+	static addressDataPairs*		parse_init_file();
 
 	/// AW: Initializes memory given parsed memory initializations
 	///	parsed initializations stored in an array of pair pointers  

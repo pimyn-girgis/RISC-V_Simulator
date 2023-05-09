@@ -3,7 +3,8 @@
 instruction::instruction(const std::string &assembly, const int machine)
     : assembly(assembly), machine(machine) {}
 
-riscv::riscv() {
+riscv::riscv(fs::path *mem_init_file, fs::path *mem_write_file,
+             fs::path *reg_init_file, fs::path *reg_write_file) {
   instruction_set = {
       {"lui", 0x00000037},    {"auipc", 0x00000017}, {"jal", 0x0000006f},
       {"jalr", 0x00000067},   {"beq", 0x00000063},   {"bne", 0x00001063},
@@ -20,6 +21,7 @@ riscv::riscv() {
       {"and", 0x00007033},    {"fence", 0x0000000f}, {"ecall", 0x00000073},
       {"ebreak", 0x00100073},
   };
+
   registers = {
       {"zero", 0}, {"ra", 1},   {"sp", 2},   {"gp", 3},   {"tp", 4},
       {"t0", 5},   {"t1", 6},   {"t2", 7},   {"s0", 8},   {"s1", 9},
@@ -35,7 +37,11 @@ riscv::riscv() {
       {"x23", 23}, {"x24", 24}, {"x25", 25}, {"x26", 26}, {"x27", 27},
       {"x28", 28}, {"x29", 29}, {"x30", 30}, {"x31", 31}, {"pc", 32},
   };
-  
+
+  mem = std::move(memory(0x40000000, mem_init_file, mem_write_file)); // 4GB memory
+  reg = std::move(memory(0x00000011, reg_init_file, reg_write_file)); // 32 registers + pc
+  mem.init_memory(memory::parse_init_file());
+  reg.init_memory(memory::parse_init_file());
 }
 
 int riscv::parse_operands(int machine, char *operands[3], int inst_num) {
