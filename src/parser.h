@@ -19,12 +19,14 @@ using namespace std;
 /// AW: Header file to include our parser declarations for good repo hygiene
 /// you could make a class to encapsulate the parser if needed, see how this may/may not help you
 
-//	Main parser Declarations	//
-map<string, int>Set_Instruction_Set();
+
+map<const char *, int>Set_Instruction_Set();
 map<char*, int*> set_registers();
 vector<string> Get_Instructions();
 map<char*, int> Get_Labels(vector<string>& instruction_string);
 void Translate_Instructions(vector<string>& instruction_string, map<string, int>& instruction_set, map<char*, int*> registers);
+
+int parse_instruction(const string *instruction);
 
 //	Instruction parsers Declarations	//
 void LUI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers);

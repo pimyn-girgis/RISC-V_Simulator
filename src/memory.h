@@ -50,6 +50,7 @@ private:
 public:
 
 	memory();
+	memory(int size);
 	memory(std::map<int, int>* block, sectionAddresses* sA, long int size, fs::path* writeFile, fs::path* initFile);
 	~memory();
 

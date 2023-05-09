@@ -228,3 +228,8 @@ bool memory::is_address_valid(int address)
 {
 	return address >= 0 && address < _size;
 }
+
+memory::memory(int size) : memory()
+{
+	_size = size;
+}

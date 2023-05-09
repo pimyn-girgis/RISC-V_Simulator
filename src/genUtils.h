@@ -8,12 +8,12 @@
 #include <iostream>
 #include <string>
 
-
 //AW: general utilities class, encapsulates general functions used in classes, driver code etc
 class genUtils
 {
-	
-
+public:
+	static int get_bits(int num, int start, int end);
+	static int set_bits(int num, int start, int end, int value);
 };
 
 #endif

@@ -1,179 +1,63 @@
-
 #include "parser.h"
+#include <cstdio>
+#include <cstdlib>
 
 // main parse Fx //
-map<string, int>Set_Instruction_Set()
+map<const char *, int>set_instruction_set()
 {
-	map<string, int> instruction_set;
-	instruction_set.insert({ "",0 });
-	instruction_set.insert({ "lui",1 });
-	instruction_set.insert({ "auipc",2 });
-	instruction_set.insert({ "jal",3 });
-	instruction_set.insert({ "jalr",4 });
-	instruction_set.insert({ "beq",5 });
-	instruction_set.insert({ "bne",6 });
-	instruction_set.insert({ "blt",7 });
-	instruction_set.insert({ "bge",8 });
-	instruction_set.insert({ "bltu",9 });
-	instruction_set.insert({ "bgeu",10 });
-	instruction_set.insert({ "lb",11 });
-	instruction_set.insert({ "lh",12 });
-	instruction_set.insert({ "lw",13 });
-	instruction_set.insert({ "lbu",14 });
-	instruction_set.insert({ "lhu",15 });
-	instruction_set.insert({ "sb",16 });
-	instruction_set.insert({ "sh",17 });
-	instruction_set.insert({ "sw",18 });
-	instruction_set.insert({ "addi",19 });
-	instruction_set.insert({ "slti",20 });
-	instruction_set.insert({ "sltiu",21 });
-	instruction_set.insert({ "xori",22 });
-	instruction_set.insert({ "ori",23 });
-	instruction_set.insert({ "andi",24 });
-	instruction_set.insert({ "slli",25 });
-	instruction_set.insert({ "srli",26 });
-	instruction_set.insert({ "srai",27 });
-	instruction_set.insert({ "add",28 });
-	instruction_set.insert({ "sub",29 });
-	instruction_set.insert({ "sll",30 });
-	instruction_set.insert({ "slt",31 });
-	instruction_set.insert({ "sltu",32 });
-	instruction_set.insert({ "xor",33 });
-	instruction_set.insert({ "srl",34 });
-	instruction_set.insert({ "sra",35 });
-	instruction_set.insert({ "or",36 });
-	instruction_set.insert({ "and",37 });
-	instruction_set.insert({ "fence",38 });
-	instruction_set.insert({ "ecall",39 });
-	instruction_set.insert({ "ebreak",40 });
+	map<const char*, int> instruction_set =
+	{
+	{ ""      , 0  },
+	{ "lui"   , 1  },
+	{ "auipc" , 2  },
+	{ "jal"   , 3  },
+	{ "jalr"  , 4  },
+	{ "beq"   , 5  },
+	{ "bne"   , 6  },
+	{ "blt"   , 7  },
+	{ "bge"   , 8  },
+	{ "bltu"  , 9  },
+	{ "bgeu"  , 10 },
+	{ "lb"    , 11 },
+	{ "lh"    , 12 },
+	{ "lw"    , 13 },
+	{ "lbu"   , 14 },
+	{ "lhu"   , 15 },
+	{ "sb"    , 16 },
+	{ "sh"    , 17 },
+	{ "sw"    , 18 },
+	{ "addi"  , 19 },
+	{ "slti"  , 20 },
+	{ "sltiu" , 21 },
+	{ "xori"  , 22 },
+	{ "ori"   , 23 },
+	{ "andi"  , 24 },
+	{ "slli"  , 25 },
+	{ "srli"  , 26 },
+	{ "srai"  , 27 },
+	{ "add"   , 28 },
+	{ "sub"   , 29 },
+	{ "sll"   , 30 },
+	{ "slt"   , 31 },
+	{ "sltu"  , 32 },
+	{ "xor"   , 33 },
+	{ "srl"   , 34 },
+	{ "sra"   , 35 },
+	{ "or"    , 36 },
+	{ "and"   , 37 },
+	{ "fence" , 38 },
+	{ "ecall" , 39 },
+	{ "ebreak", 40 }
+	};
 
 	return instruction_set;
 }
-map<char*, int*> set_registers()
-{
-	map<char*, int*> registers;
-	//this part deals with the x0...x31 way of calling registers
-	char x = 'x';
-	char* regs = new char[3];
-	regs[0] = x;
-	regs[3] = '\0';
-	vector<int*> registers_vec(33);
-	for (int i = 0; i < registers_vec.size(); i++)
-	{
-		*registers_vec[i] = 0;
-	}
 
-	for (int i = 0; i < 10; i++)
-	{
-		regs[1] = i + '0';
-		registers.insert({ regs,registers_vec[i] });
-	}
-	delete[] regs;
-	char* regs = new char[4];
-	regs[0] = x;
-	regs[3] = '\0';
-	regs[1] = '1';
-	for (int i = 0; i < 10; i++)
-	{
-		regs[2] = i + '0';
-		registers.insert({ regs,registers_vec[i+10] });
-	}
-	regs[1] = '2';
-	for (int i = 0; i < 10; i++)
-	{
-		regs[2] = i + '0';
-		registers.insert({ regs,registers_vec[i + 20] });
-	}
-	regs[1] = '3';
-	for (int i = 0; i < 2; i++)
-	{
-		regs[2] = i + '0';
-		registers.insert({ regs,registers_vec[i + 30] });
-	}
-
-
-	//this part deals with alternative naming
-	//s10 and s11
-	regs[0] = 's';
-	regs[1] = '1';
-	regs[2] = '0';
-	registers.insert({ regs,registers_vec[26] });
-	regs[2] = '1';
-	registers.insert({ regs,registers_vec[27] });
-	delete[] regs;
-	char* regs = new char[3];
-	//ra
-	regs[0] = 'r';
-	regs[1] = 'a';
-	regs[2] = '\0';
-	registers.insert({ regs,registers_vec[1] });
-	//sp
-	regs[0] = 's';
-	regs[1] = 'p';
-
-	registers.insert({ regs,registers_vec[2] });
-	//gp
-	regs[0] = 'g';
-	regs[1] = 'p';
-
-	registers.insert({ regs,registers_vec[3] });
-	//tp
-	regs[0] = 't';
-	regs[1] = 'p';
-
-	registers.insert({ regs,registers_vec[4] });
-	//t0-t2
-	for (int i = 0; i < 3; i++)
-	{
-		regs[1] = i + '0';
-		registers.insert({ regs,registers_vec[5 + i] });
-	}
-	//t3-t6
-	for (int i = 0; i < 4; i++)
-	{
-		regs[1] = i + 3 + '0';
-		registers.insert({ regs,registers_vec[28 + i] });
-	}
-	//s0 and s1
-	regs[0] = 's';
-	for (int i = 0; i < 2; i++)
-	{
-		regs[1] = i + '0';
-		registers.insert({ regs,registers_vec[8 + i] });
-	}
-	//s2 - s9
-	for (int i = 0; i < 8; i++)
-	{
-		regs[1] = i + 2 + '0';
-		registers.insert({ regs,registers_vec[18 + i] });
-	}
-	//a0-a7
-	regs[0] = 'a';
-	for (int i = 0; i < 8; i++)
-	{
-		regs[1] = i + '0';
-		registers.insert({ regs,registers_vec[10 + i] });
-	}
-	//pc
-	regs[0] = 'p';
-	regs[1] = 'c';
-	registers.insert({ regs,registers_vec[32] });
-
-	return registers;
-}
+// Opens program.txt and returns a vector of strings containing the instructions
 vector<string> Get_Instructions()
 {
-	ifstream file;
-	vector <string> inst;
-	string temp;
-	file.open("program.txt");
-	while (getline(file, temp))
-	{
-		inst.push_back(temp);
-	}
-	file.close();
-	return inst;
 }
+
 map<char*, int> Get_Labels(vector<string>& instruction_string)
 {
 	map<char*, int> labels;
@@ -215,6 +99,7 @@ map<char*, int> Get_Labels(vector<string>& instruction_string)
 	}
 	return labels;
 }
+
 void Translate_Instructions(vector<string>& instruction_string, map<string, int>& instruction_set, map<char*, int*> registers)
 {
 	char* str;
@@ -352,14 +237,12 @@ void Translate_Instructions(vector<string>& instruction_string, map<string, int>
 				AND(res, str, delim, nextInstruction, registers);
 				break;
 			case 38:
-				TERMINATE(res, str, delim, nextInstruction, registers);
-				break;
 			case 39:
-				TERMINATE(res, str, delim, nextInstruction, registers);
-				break;
 			case 40:
 				TERMINATE(res, str, delim, nextInstruction, registers);
 				break;
+			default:
+				printf("Invalid Instruction\n");
 			}
 		}
 		count++;
@@ -367,7 +250,7 @@ void Translate_Instructions(vector<string>& instruction_string, map<string, int>
 	}
 
 	//E: AW: Fx should return a value so I added this temp
-	return {};
+	//return {};
 }
 
 //	instruction parsers	//
