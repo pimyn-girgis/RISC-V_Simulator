@@ -147,7 +147,8 @@ int memory::read_from_memory(int address)
 
 void memory::write_to_memory(addressDataPair* data)
 {
-	(*_block)[data->first] = data->second;
+	if(!points_to_constant(data->first))
+		(*_block)[data->first] = data->second;
 }
 
 memory::memory()
@@ -159,16 +160,18 @@ memory::memory()
 	fs::path* iF = new fs::path(u8"bin/RAWRS_init.txt");
 	_writeFile = wF;									//by default the writeFile will be RAWRS_write
 	_initFile = iF;										//by default the initFile will be RAWRS_init
+	_constantAddresses = new std::set<int>();
 
 }
 
-memory::memory(std::map<int, int>* b, sectionAddresses* sA, long int s, fs::path* wF, fs::path* iF)
+memory::memory(std::map<int, int>* b, sectionAddresses* sA, long int s, fs::path* wF, fs::path* iF, std::set<int>* cA)
 {
 	_block = b;
 	_sectionAddresses = sA;
 	_size = s;
 	_writeFile = wF;
 	_initFile = iF;
+	_constantAddresses = cA;
 }
 
 memory::~memory()
@@ -213,7 +216,7 @@ bool memory::is_address_valid(int address, char* section)
 	{
 		if (!strcmp(sec->first, section))
 		{
-			// check if address is in range
+			// check if address is in range 
 			return address >= sec->second && (
 				sec == _sectionAddresses->end() - 1 ?
 				this->is_address_valid(address) :
@@ -234,4 +237,16 @@ memory::memory(int size, fs::path* init_file, fs::path* write_file) : memory()
 	_size = size;
 	set_initFile(init_file);
 	set_writeFile(write_file);
+}
+
+void memory::set_constantAddresses(int address, int constants)
+{
+	std::pair<int, int>* temp = new std::pair<int, int>(address, constants);
+	write_to_memory(temp); //AW: sets in memory
+	_constantAddresses->insert(address);
+}
+
+bool memory::points_to_constant(int address)
+{
+	return _constantAddresses->find(address) != _constantAddresses->end();
 }

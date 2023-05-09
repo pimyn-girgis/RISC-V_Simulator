@@ -11,7 +11,7 @@
 #include <utility>
 #include <filesystem>	//	AW: supposedly cross platform, (C++ 17)+ standard, paths covertible to string so this is very neat
 #include <bitset>
-
+#include <set>
 
 #define	 addressDataPair	std::pair<int,int>
 #define	 addressDataPairs	std::vector<std::pair<int, int>*>
@@ -46,12 +46,19 @@ private:
 
 	fs::path*						_writeFile;						//	AW: default file path for writing
 	fs::path*						_initFile;						//	AW: default file path for initialisations
+	std::set<int>*					_constantAddresses;				//  AW: set of address that their data is hardcoded to constants
 
 public:
 
 	memory();
 	memory(int size, fs::path *init_file, fs::path *write_file);
-	memory(std::map<int, int>* block, sectionAddresses* sA, long int size, fs::path* writeFile, fs::path* initFile);
+	memory(	std::map<int, int>* block, 
+			sectionAddresses* sA,
+			long int size,
+			fs::path* writeFile,
+			fs::path* initFile,
+			std::set<int>* cA );
+
 	~memory();
 
 	void					set_writeFile(fs::path* writeFile);
@@ -59,6 +66,8 @@ public:
 	void					set_initFile(fs::path* initFile);
 	fs::path*				get_initFile();
 	void					set_sectionAddresses(sectionAddresses*);
+	void					set_constantAddresses(int address, int constants);
+	bool					points_to_constant(int address);
 
 	/// AW: setters, getters used for GUI 
 	/// I am thinking for GUI we have a seperate memory GUI utilties file to output what we need in Qt using
@@ -67,7 +76,7 @@ public:
 	/// inits, printers, writers used for CLI
 	
 	//	AW: parses text file, final output in an array of pair pointers, given a file path
-	static addressDataPairs*		parse_init_file();
+	addressDataPairs*		parse_init_file();
 
 	/// AW: Initializes memory given parsed memory initializations
 	///	parsed initializations stored in an array of pair pointers  
@@ -91,7 +100,9 @@ public:
 
 	bool					is_address_valid(int address, char* section);
 
-	bool					is_address_valid(int address);					//AW: for sectionless memory (in our case
+	bool					is_address_valid(int address);					//AW: for sectionless memory
+
+
 
 
 };
