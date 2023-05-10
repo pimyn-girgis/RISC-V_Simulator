@@ -255,31 +255,128 @@ void Translate_Instructions(vector<string>& instruction_string, map<string, int>
 
 //	instruction parsers	//
 
+//deals with the parsing of LUI and AUIPC
+void parse1(char* res, char* str, const char* delim, int& immediate, int*& reg, map<char*, int*> registers)
+{
+	do
+	{
+		res = strtok(NULL, delim);
+	} while (res && !*res);
+	immediate = atoi(res);
+	do
+	{
+		res = strtok(NULL, delim);
+	} while (res && !*res);
+	reg = registers[res];
+}
+
+//deals with JAL, JALR, BEQ, BNE, BLT, BGE, BLTU, BGEU
+void parse2(char* res, char* str, const char* delim, int& immediate, int& line, int*& reg, int*& reg2, map<char*, int*> registers, map<char*, int> labels)
+{
+	
+	do
+	{
+		res = strtok(NULL, delim);
+	} while (res && !*res);
+	reg = registers[res];
+
+	do
+	{
+		res = strtok(NULL, delim);
+	} while (res && !*res);
+
+	if (res[0] < '0' || res[0]>'9') //offset address system
+	{
+		immediate = atoi(res);
+		while (res && !*res)
+		{
+			res = strtok(NULL, delim);
+		}
+		reg2 = registers[res];
+
+	}
+	else //label system
+	{
+		line = labels[res];
+	}
+}
+
+//deals with loads and stores
+void parse3(char* res, char* str, const char* delim, int& immediate, int*& reg, int*& reg2, map<char*, int*> registers)
+{
+	do
+	{
+		res = strtok(NULL, delim);
+	} while (res && !*res);
+	reg = registers[res];
+	do
+	{
+		res = strtok(NULL, delim);
+	} while (res && !*res);
+	immediate = atoi(res);
+
+	do
+	{
+		res = strtok(NULL, delim);
+	} while (res && !*res);
+	reg2 = registers[res];
+}
+
+//deals with most other immeadiate type functions
+void parse4(char* res, char* str, const char* delim, int& immediate, int*& reg, int*& reg2, map<char*, int*> registers)
+{
+	do
+	{
+		res = strtok(NULL, delim);
+	} while (res && !*res);
+	reg = registers[res];
+	do
+	{
+		res = strtok(NULL, delim);
+	} while (res && !*res);
+	reg2 = registers[res];
+
+	do
+	{
+		res = strtok(NULL, delim);
+	} while (res && !*res);
+	immediate = atoi(res);
+}
+
+//deals with most R-type instructions
+void parse5(char* res, char* str, const char* delim, int*& reg, int*& reg2, int*& reg3, map<char*, int*> registers)
+{
+	do
+	{
+		res = strtok(NULL, delim);
+	} while (res && !*res);
+	reg = registers[res];
+	do
+	{
+		res = strtok(NULL, delim);
+	} while (res && !*res);
+	reg2 = registers[res];
+
+	do
+	{
+		res = strtok(NULL, delim);
+	} while (res && !*res);
+	reg3 = registers[res];
+}
+
+
+//	instructions  //
 void LUI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
 {
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	int immediate = atoi(res);
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	int* reg = registers[res];
+	int immediate;
+	int* reg;
+	parse1(res, str, delim, immediate, reg, registers);
 }
 void AUIPC(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
 {
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	int immediate = atoi(res);
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	int* reg = registers[res];
+	int immediate;
+	int* reg;
+	parse1(res, str, delim, immediate, reg, registers);
 
 }
 void JAL(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels)
@@ -288,30 +385,8 @@ void JAL(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg2;
 	int immediate;
 	int line;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-
-	reg = registers[res];
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	if (res[0] < '0' || res[0]>'9') //offset address system
-	{
-		immediate = atoi(res);
-		while (res && !*res)
-		{
-			res = strtok(NULL, delim);
-		}
-		reg2 = registers[res];
-
-	}
-	else //label system
-	{
-		line = labels[res];
-	}
+	parse2(res, str, delim, immediate, line, reg, reg2, registers, labels);
+	
 }
 void JALR(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels)
 {
@@ -319,30 +394,7 @@ void JALR(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg2;
 	int immediate;
 	int line;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-
-	reg = registers[res];
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	if (res[0] < '0' || res[0]>'9') //offset address system
-	{
-		immediate = atoi(res);
-		while (res && !*res)
-		{
-			res = strtok(NULL, delim);
-		}
-		reg2 = registers[res];
-
-	}
-	else //label system
-	{
-		line = labels[res];
-	}
+	parse2(res, str, delim, immediate, line, reg, reg2, registers, labels);
 }
 void BEQ(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels)
 {
@@ -350,31 +402,7 @@ void BEQ(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg2;
 	int immediate;
 	int line;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	if (res[0] < '0' || res[0]>'9') //offset address system
-	{
-		immediate = atoi(res);
-
-	}
-	else //label system
-	{
-		line = labels[res];
-	}
+	parse2(res, str, delim, immediate, line, reg, reg2, registers, labels);
 }
 void BNE(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels)
 {
@@ -382,31 +410,7 @@ void BNE(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg2;
 	int immediate;
 	int line;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	if (res[0] < '0' || res[0]>'9') //offset address system
-	{
-		immediate = atoi(res);
-
-	}
-	else //label system
-	{
-		line = labels[res];
-	}
+	parse2(res, str, delim, immediate, line, reg, reg2, registers, labels);
 }
 void BLT(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels)
 {
@@ -414,31 +418,7 @@ void BLT(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg2;
 	int immediate;
 	int line;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	if (res[0] < '0' || res[0]>'9') //offset address system
-	{
-		immediate = atoi(res);
-
-	}
-	else //label system
-	{
-		line = labels[res];
-	}
+	parse2(res, str, delim, immediate, line, reg, reg2, registers, labels);
 }
 void BGE(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels)
 {
@@ -446,31 +426,7 @@ void BGE(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg2;
 	int immediate;
 	int line;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	if (res[0] < '0' || res[0]>'9') //offset address system
-	{
-		immediate = atoi(res);
-
-	}
-	else //label system
-	{
-		line = labels[res];
-	}
+	parse2(res, str, delim, immediate, line, reg, reg2, registers, labels);
 }
 void BLTU(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels)
 {
@@ -478,31 +434,7 @@ void BLTU(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg2;
 	int immediate;
 	int line;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	if (res[0] < '0' || res[0]>'9') //offset address system
-	{
-		immediate = atoi(res);
-
-	}
-	else //label system
-	{
-		line = labels[res];
-	}
+	parse2(res, str, delim, immediate, line, reg, reg2, registers, labels);
 }
 void BGEU(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers, map<char*, int> labels)
 {
@@ -510,238 +442,70 @@ void BGEU(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg2;
 	int immediate;
 	int line;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	if (res[0] < '0' || res[0]>'9') //offset address system
-	{
-		immediate = atoi(res);
-
-	}
-	else //label system
-	{
-		line = labels[res];
-	}
+	parse2(res, str, delim, immediate, line, reg, reg2, registers, labels);
 }
 void LB(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
 {
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	immediate = atoi(res);
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
+	parse3(res, str, delim, immediate, reg, reg2, registers);
 }
 void LH(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
 {
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	immediate = atoi(res);
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
+	parse3(res, str, delim, immediate, reg, reg2, registers);
 }
 void LW(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
 {
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	immediate = atoi(res);
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
+	parse3(res, str, delim, immediate, reg, reg2, registers);
 }
 void LBU(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
 {
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	immediate = atoi(res);
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
+	parse3(res, str, delim, immediate, reg, reg2, registers);
 }
 void LHU(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
 {
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	immediate = atoi(res);
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
+	parse3(res, str, delim, immediate, reg, reg2, registers);
 }
 void SB(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
 {
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	immediate = atoi(res);
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
+	parse3(res, str, delim, immediate, reg, reg2, registers);
 }
 void SH(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
 {
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	immediate = atoi(res);
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
+	parse3(res, str, delim, immediate, reg, reg2, registers);
 }
 void SW(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
 {
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	immediate = atoi(res);
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
+	parse3(res, str, delim, immediate, reg, reg2, registers);
 }
 void ADDI(char* res, char* str, const char* delim, char* nextInstruction, map<char*, int*> registers)
 {
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	immediate = atoi(res);
+	parse4(res, str, delim, immediate, reg, reg2, registers);
 
 
 }
@@ -750,23 +514,7 @@ void SLTI(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	immediate = atoi(res);
+	parse4(res, str, delim, immediate, reg, reg2, registers);
 
 
 }
@@ -775,23 +523,7 @@ void SLTIU(char* res, char* str, const char* delim, char* nextInstruction, map<c
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	immediate = atoi(res);
+	parse4(res, str, delim, immediate, reg, reg2, registers);
 
 
 }
@@ -800,23 +532,7 @@ void XORI(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	immediate = atoi(res);
+	parse4(res, str, delim, immediate, reg, reg2, registers);
 
 
 }
@@ -825,23 +541,7 @@ void ORI(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	immediate = atoi(res);
+	parse4(res, str, delim, immediate, reg, reg2, registers);
 
 
 }
@@ -850,23 +550,7 @@ void ANDI(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	immediate = atoi(res);
+	parse4(res, str, delim, immediate, reg, reg2, registers);
 
 
 }
@@ -875,23 +559,7 @@ void SLLI(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	immediate = atoi(res);
+	parse4(res, str, delim, immediate, reg, reg2, registers);
 
 
 }
@@ -900,23 +568,7 @@ void SRLI(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	immediate = atoi(res);
+	parse4(res, str, delim, immediate, reg, reg2, registers);
 
 
 }
@@ -925,23 +577,7 @@ void SRAI(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg;
 	int* reg2;
 	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	immediate = atoi(res);
+	parse4(res, str, delim, immediate, reg, reg2, registers);
 
 
 }
@@ -950,24 +586,7 @@ void ADD(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg;
 	int* reg2;
 	int* reg3;
-	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg3 = registers[res];
+	parse5(res, str, delim, reg, reg2, reg3, registers);
 
 
 }
@@ -976,24 +595,7 @@ void SUB(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg;
 	int* reg2;
 	int* reg3;
-	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg3 = registers[res];
+	parse5(res, str, delim, reg, reg2, reg3, registers);
 
 
 }
@@ -1002,24 +604,7 @@ void SLL(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg;
 	int* reg2;
 	int* reg3;
-	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg3 = registers[res];
+	parse5(res, str, delim, reg, reg2, reg3, registers);
 
 
 }
@@ -1028,24 +613,7 @@ void SLT(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg;
 	int* reg2;
 	int* reg3;
-	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg3 = registers[res];
+	parse5(res, str, delim, reg, reg2, reg3, registers);
 
 
 }
@@ -1054,24 +622,7 @@ void SLTU(char* res, char* str, const char* delim, char* nextInstruction, map<ch
 	int* reg;
 	int* reg2;
 	int* reg3;
-	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg3 = registers[res];
+	parse5(res, str, delim, reg, reg2, reg3, registers);
 
 
 }
@@ -1080,24 +631,7 @@ void XOR(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg;
 	int* reg2;
 	int* reg3;
-	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg3 = registers[res];
+	parse5(res, str, delim, reg, reg2, reg3, registers);
 
 
 }
@@ -1106,24 +640,7 @@ void SRL(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg;
 	int* reg2;
 	int* reg3;
-	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg3 = registers[res];
+	parse5(res, str, delim, reg, reg2, reg3, registers);
 
 
 }
@@ -1132,24 +649,7 @@ void SRA(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg;
 	int* reg2;
 	int* reg3;
-	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg3 = registers[res];
+	parse5(res, str, delim, reg, reg2, reg3, registers);
 
 
 }
@@ -1158,24 +658,7 @@ void OR(char* res, char* str, const char* delim, char* nextInstruction, map<char
 	int* reg;
 	int* reg2;
 	int* reg3;
-	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg3 = registers[res];
+	parse5(res, str, delim, reg, reg2, reg3, registers);
 
 
 }
@@ -1184,24 +667,7 @@ void AND(char* res, char* str, const char* delim, char* nextInstruction, map<cha
 	int* reg;
 	int* reg2;
 	int* reg3;
-	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg3 = registers[res];
+	parse5(res, str, delim, reg, reg2, reg3, registers);
 
 
 }
@@ -1210,24 +676,7 @@ void TERMINATE(char* res, char* str, const char* delim, char* nextInstruction, m
 	int* reg;
 	int* reg2;
 	int* reg3;
-	int immediate;
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg2 = registers[res];
-
-	while (res && !*res)
-	{
-		res = strtok(NULL, delim);
-	}
-	reg3 = registers[res];
+	parse5(res, str, delim, reg, reg2, reg3, registers);
 
 
 }

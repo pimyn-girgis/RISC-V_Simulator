@@ -1,9 +1,11 @@
-May 1 7:00 pm Magd :	Case skeleton for the 40 instructions
+May 1 7:00 pm Magd :	  Case skeleton for the 40 instructions
 May 1 8:11 pm Magd :    implemented a tokenization system for text extraction that allows for operations to access relevant data
 May 4 3:51 am Ahmed:    implemented a base for memory class
 May 4 7:51 pm Ahmed:    completed parsing for memory initialisation, printing on console
 May 5 1:51 pm Ahmed:    completed memory class write to file, padding for printing/write
 May 5 6:01 pm Bemen:    Made code cross_platform and fixed some general errors
-May 5 7:46 pm Magd :	Completed initialization of registers and made the function that translates instructions into type void
+May 5 7:46 pm Magd :	  Completed initialization of registers and made the function that translates instructions into type void
 May 5 8:48 pm Bemen:    Implemented more functions in the memory class
+May 9 6:58 pm Bemen:    Implemented riscv class.
+May 9 7:39 pm Magd :    Fixed critical error in parsing method and created inner parsing functions to reduce code redundancy.
 May 10 10:20 pm Ahmed:	Modifications in memory class
