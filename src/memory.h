@@ -13,9 +13,9 @@
 #include <bitset>
 #include <set>
 
-#define	 addressDataPair	std::pair<int,int>
-#define	 addressDataPairs	std::vector<std::pair<int, int>*>
-#define	 sectionAddresses	std::vector<std::pair<const char*, int>>
+typedef	 std::pair<size_t, int> addressDataPair;
+typedef	 std::vector<std::pair<size_t, int>*> addressDataPairs;
+typedef  std::vector<std::pair<const char*, size_t>> sectionAddresses;
 
 namespace fs = std::filesystem;
 
@@ -37,27 +37,27 @@ namespace fs = std::filesystem;
 class memory
 {
 private:
-	std::map<int, int>*				_block;							//	AW: memory block, address as key, data as value
+	std::map<size_t, int>*				_block;							//	AW: memory block, address as key, data as value
 	sectionAddresses*				_sectionAddresses;				//	AW: section labels, string is label .i.e .data and key, address as the value
 
-	long long int					_size;							///	AW: i.e. 4GB has 0d1073741824 addressable 32bit words, or 0x40000000 in hex. so 
+	size_t							_size;							///	AW:
 																	///	this is initialized as the last addressable address in the memory
 																	/// will be useful for validation
 
 	fs::path*						_writeFile;						//	AW: default file path for writing
 	fs::path*						_initFile;						//	AW: default file path for initialisations
-	std::set<int>*					_constantAddresses;				//  AW: set of address that their data is hardcoded to constants
+	std::set<size_t>*				_constantAddresses;				//  AW: set of address that their data is hardcoded to constants
 
 public:
 
 	memory();
-	memory(int size, fs::path *init_file, fs::path *write_file);
-	memory(	std::map<int, int>* block, 
-			sectionAddresses* sA,
-			long int size,
-			fs::path* writeFile,
-			fs::path* initFile,
-			std::set<int>* cA );
+	memory(size_t size, fs::path *init_file, fs::path *write_file);
+	memory(	std::map<size_t, int>*	block, 
+			sectionAddresses*	sA,
+			size_t				size,
+			fs::path*			writeFile,
+			fs::path*			initFile,
+			std::set<size_t>*		cA) ;
 
 	~memory();
 
@@ -66,8 +66,8 @@ public:
 	void					set_initFile(fs::path* initFile);
 	fs::path*				get_initFile();
 	void					set_sectionAddresses(sectionAddresses*);
-	void					set_constantAddresses(int address, int constants);
-	bool					points_to_constant(int address);
+	void					set_constantAddresses(size_t address, int constants);
+	bool					points_to_constant(size_t address);
 
 	/// AW: setters, getters used for GUI 
 	/// I am thinking for GUI we have a seperate memory GUI utilties file to output what we need in Qt using
@@ -86,7 +86,7 @@ public:
 	void					write_to_memory(addressDataPair*);
 
 	//	AW: reads data given an address (basically a getter for data)
-	int						read_from_memory(int);
+	int						read_from_memory(size_t);
 	
 	///	AW: CLI
 	///	print option: according to the char we print in Hex, Dec
@@ -98,12 +98,9 @@ public:
 	///	writes to file path (member)
 	void					write_memory_to_file(char printOption);
 
-	bool					is_address_valid(int address, char* section);
+	bool					is_address_valid(size_t address, char* section);
 
-	bool					is_address_valid(int address);					//AW: for sectionless memory
-
-
-
+	bool					is_address_valid(size_t address);					//AW: for sectionless memory
 
 };
 

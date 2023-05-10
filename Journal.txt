@@ -8,3 +8,4 @@ May 5 7:46 pm Magd :	  Completed initialization of registers and made the functi
 May 5 8:48 pm Bemen:    Implemented more functions in the memory class
 May 9 6:58 pm Bemen:    Implemented riscv class.
 May 9 7:39 pm Magd :    Fixed critical error in parsing method and created inner parsing functions to reduce code redundancy.
+May 10 10:20 pm Ahmed:	Modifications in memory class
