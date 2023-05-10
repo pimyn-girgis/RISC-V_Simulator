@@ -52,5 +52,6 @@
     <Text Include="bin\RAWRS_write.txt">
       <Filter>Source Files\bin</Filter>
     </Text>
+    <Text Include="Journal.txt" />
   </ItemGroup>
 </Project>

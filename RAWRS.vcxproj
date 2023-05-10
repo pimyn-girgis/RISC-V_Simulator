@@ -32,6 +32,7 @@
   <ItemGroup>
     <Text Include="bin\RAWRS_init.txt" />
     <Text Include="bin\RAWRS_write.txt" />
+    <Text Include="Journal.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

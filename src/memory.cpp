@@ -9,7 +9,7 @@ addressDataPairs* memory::parse_init_file()
 	std::ifstream		initFileStream;
 	std::string			line;
 	int					data;
-	int					address;
+	size_t					address;
 	addressDataPair*	tempPair = new addressDataPair();
 	addressDataPairs*	parsedPairs = new addressDataPairs();
 
@@ -140,7 +140,7 @@ void memory::write_memory_to_file(char printOption)
 	}
 }
 
-int memory::read_from_memory(int address)
+int memory::read_from_memory(size_t address)
 {
 	return (*_block)[address];
 }
@@ -153,18 +153,18 @@ void memory::write_to_memory(addressDataPair* data)
 
 memory::memory()
 {
-	_block = new std::map<int,int>();
+	_block = new std::map<size_t,int>();
 	_sectionAddresses = new sectionAddresses();
 	_size = 0;
 	fs::path* wF = new fs::path(u8"bin/RAWRS_write.txt");
 	fs::path* iF = new fs::path(u8"bin/RAWRS_init.txt");
 	_writeFile = wF;									//by default the writeFile will be RAWRS_write
 	_initFile = iF;										//by default the initFile will be RAWRS_init
-	_constantAddresses = new std::set<int>();
+	_constantAddresses = new std::set<size_t>();
 
 }
 
-memory::memory(std::map<int, int>* b, sectionAddresses* sA, long int s, fs::path* wF, fs::path* iF, std::set<int>* cA)
+memory::memory(std::map<size_t, int>* b, sectionAddresses* sA, size_t s, fs::path* wF, fs::path* iF, std::set<size_t>* cA)
 {
 	_block = b;
 	_sectionAddresses = sA;
@@ -209,7 +209,7 @@ void memory::set_sectionAddresses(sectionAddresses* sA)
 	_sectionAddresses = sA;
 }
 
-bool memory::is_address_valid(int address, char* section)
+bool memory::is_address_valid(size_t address, char* section)
 {
 	// get position of section in sectionAddresses
 	for (auto sec = _sectionAddresses->begin(); sec != _sectionAddresses->end(); ++sec)
@@ -227,26 +227,26 @@ bool memory::is_address_valid(int address, char* section)
 	return this->is_address_valid(address);
 }
 
-bool memory::is_address_valid(int address)
+bool memory::is_address_valid(size_t address)
 {
 	return address >= 0 && address < _size;
 }
 
-memory::memory(int size, fs::path* init_file, fs::path* write_file) : memory()
+memory::memory(size_t size, fs::path* init_file, fs::path* write_file) : memory()
 {
 	_size = size;
 	set_initFile(init_file);
 	set_writeFile(write_file);
 }
 
-void memory::set_constantAddresses(int address, int constants)
+void memory::set_constantAddresses(size_t address, int constants)
 {
-	std::pair<int, int>* temp = new std::pair<int, int>(address, constants);
+	std::pair<size_t, int>* temp = new std::pair<size_t, int>(address, constants);
 	write_to_memory(temp); //AW: sets in memory
 	_constantAddresses->insert(address);
 }
 
-bool memory::points_to_constant(int address)
+bool memory::points_to_constant(size_t address)
 {
 	return _constantAddresses->find(address) != _constantAddresses->end();
 }
