@@ -30,23 +30,21 @@ MainWin::MainWin(QWidget *parent)
     ui->registerView->verticalHeader()->setVisible(false);
     ui->registerView->horizontalHeader()->setVisible(false);
 
-    initRegFile = new fs::path("D:/academic/AUC/Spring 2023/CompOrg & Assm/QtThemeTest/register_init.txt");
-    initMemFile = new fs::path("D:/academic/AUC/Spring 2023/CompOrg & Assm/QtThemeTest/memory_init.txt");
-    writeRegFile = new fs::path("D:/academic/AUC/Spring 2023/CompOrg & Assm/QtThemeTest/register_write.txt");
-    writeMemFile = new fs::path("D:/academic/AUC/Spring 2023/CompOrg & Assm/QtThemeTest/memory_write.txt");
-    programFile = new fs::path("D:/academic/AUC/Spring 2023/CompOrg & Assm/QtThemeTest/program.txt");
+    initRegFile = new fs::path("D:/academic/AUC/Spring 2023/RISC-V_Simulator/register_init.txt");
+    initMemFile = new fs::path("D:/academic/AUC/Spring 2023/RISC-V_Simulator/memory_init.txt");
+    writeRegFile = new fs::path("D:/academic/AUC/Spring 2023/RISC-V_Simulator/register_write.txt");
+    writeMemFile = new fs::path("D:/academic/AUC/Spring 2023/RISC-V_Simulator/memory_write.txt");
+    programFile = new fs::path("D:/academic/AUC/Spring 2023/RISC-V_Simulator/program.txt");
+
 
     std::string programFileStr = fbm->_fileName.QString::toStdString();
 
-    RISC32.read_program(*programFile);
+    RISC32.read_program(*programFile, initMemFile, writeMemFile, initRegFile, writeRegFile);
 
-    QFile file(QString::fromStdString((programFile->fs::path::string())));
-    if (file.open(QFile::ReadOnly | QFile::Text))
-        ui->plainTextEdit->setPlainText(file.readAll());
-
+    set_plainText_doc((QString::fromStdString((programFile->fs::path::string()))));
 
     setupRiscV();
-
+    update_tables();
 }
 
 void MainWin::set_plainText_doc(QString path)

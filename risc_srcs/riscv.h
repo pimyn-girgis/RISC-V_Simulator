@@ -72,7 +72,11 @@ private:
 public:
   const memory &get_mem();
   const memory &get_reg();
-  int get_pc();
+  size_t get_pc()
+  {
+      return pc << 2;
+  }
+
   int parse_instruction(
       const std::string
           &instruction); // returns the machine code for the instruction

@@ -1,13 +1,9 @@
 #define  _CRT_SECURE_NO_WARNINGS
 #include "memory.h"
+#include <string.h>
 
 //AW: i could parse and initialise immediately but i chose to do it this way to so i have the parsed data accessible for the GUI
 //AW: might put the return vector as member in the class w 5alas 
-
-std::map<size_t, int>*  memory::get_block()
-{
-    return _block;
-}
 
 addressDataPairs* memory::parse_init_file()
 {
@@ -181,6 +177,7 @@ memory::memory(std::map<size_t, int>* b, sectionAddresses* sA, size_t s, fs::pat
 
 memory::~memory()
 {
+    write_memory_to_file('x');
 	// delete _block;
 	// delete _sectionAddresses;
 	// delete _writeFile;

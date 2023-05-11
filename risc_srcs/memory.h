@@ -12,7 +12,6 @@
 #include <filesystem>	//	AW: supposedly cross platform, (C++ 17)+ standard, paths covertible to string so this is very neat
 #include <bitset>
 #include <set>
-#include <string.h>
 
 typedef	 std::pair<size_t, int> addressDataPair;
 typedef	 std::vector<std::pair<size_t, int>*> addressDataPairs;
@@ -38,7 +37,7 @@ namespace fs = std::filesystem;
 class memory
 {
 private:
-    std::map<size_t, int>*				_block;							//	AW: memory block, address as key, data as value
+  std::map<size_t, int>*				_block;							//	AW: memory block, address as key, data as value
 	sectionAddresses*				_sectionAddresses;				//	AW: section labels, string is label .i.e .data and key, address as the value
 
 	size_t							_size;							///	AW:
@@ -64,9 +63,12 @@ public:
 
 	void					set_writeFile(fs::path* writeFile);
 	fs::path*				get_writeFile();
+    std::map<size_t, int>*   get_block()
+    {
+        return _block;
+    }
 	void					set_initFile(fs::path* initFile);
 	fs::path*				get_initFile();
-    std::map<size_t, int>*  get_block();
 	void					set_sectionAddresses(sectionAddresses*);
 	void					set_constantAddress(size_t address, int constants);
 	bool					points_to_constant(size_t address);

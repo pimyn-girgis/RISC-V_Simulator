@@ -1,11 +1,6 @@
 #include "riscv.h"
 #include "genUtils.h"
-
-//sorry will put at top lol
-int riscv::get_pc()
-{
-    return pc << 2;
-}
+#include <iomanip>
 
 void riscv::init_reg(fs::path *reg_init_file, fs::path *reg_write_file)
 {
@@ -115,7 +110,7 @@ int riscv::parse_operands(int machine, char *operands[3], int inst_num) {
       machine = set_upp_imm(machine, atoi(operands[1]));
       break;
     case 0x0f: // fence
-    case 0x73: // ecall, ebreak
+    case 0x73: // ecall - ebreak
       break;
     default:
       std::cout << "Error: invalid instruction opcode: " << opcode << '\n';
@@ -166,13 +161,10 @@ void riscv::read_program(fs::path &text,
   std::ifstream file;
 
   file.open(text);
-  if(file.is_open())
-  {
   std::string line;
   while (!file.eof()) {
     getline(file, line);
     read_line(line);
-  }
   }
   file.close();
 
@@ -409,6 +401,7 @@ void riscv::stype(int instruction) {
 }
 
 void riscv::execute() {
+  if (end_of_program()) return;
   int instruction = mem.read_from_memory(pc << 2, 4);
 
   switch(get_opcode(instruction)) {
@@ -441,17 +434,16 @@ void riscv::execute() {
     case 0b0001111: // fence
     case 0b1110011: // system
     // terminate program
-      pc = -1;
+      pc = -2LLU;
       break;
   }
 
-  // std::cout << std::left << std::setw(20) << instructions[pc];
+  std::cout << std::left << std::setw(20) << instructions[pc] << "PC: " << std::setw(10) << (pc * 4) << ' ' << "Registers: ";
   for(int i = 0; i < 32; i++) {
     std::cout << reg.read_from_memory(i) << " ";
   }
 
   std::cout << std::endl;
-
   ++pc;
 }
 
@@ -537,7 +529,7 @@ int riscv::set_upp_imm(int instruction, int value) {
   return genUtils::set_bits(instruction, 12, 31, value);
 }
 bool riscv::end_of_program() {
-  return pc == -1 || pc >= instructions.size();
+  return pc >= -2LLU || pc >= instructions.size();
 }
 
 const memory& riscv::get_mem() {
