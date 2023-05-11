@@ -1,0 +1,24 @@
+addi t0,zero,5
+addi t1,zero,-6
+
+#test SLTI, SLTUI, SLT, SLTU
+slt t2,t0,t1
+slti t3,t0,50
+slti t4, t0,-23
+sltiu t5,t1,-23
+
+#tests AND and OR
+or t6,t2,t3
+and t6,t4,t3
+
+ori t2,t0,24
+andi t3,t0,3
+
+sll t6,t1,t0
+slli t6,t0,4
+
+add t0,t0,t1
+sub t1,t1,t0
+srai t0,t6,2
+srli t0,t6,4
+fence
