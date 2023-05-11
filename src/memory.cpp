@@ -176,12 +176,13 @@ memory::memory(std::map<size_t, int>* b, sectionAddresses* sA, size_t s, fs::pat
 
 memory::~memory()
 {
-	delete[]_block;
-	delete[]_sectionAddresses;
-	delete[]_writeFile;
-	delete[]_initFile;
+	// free(_block);
+	// free(_sectionAddresses);
+	// free(_writeFile);
+	// free(_initFile);
+        // free(_constantAddresses);
 
-	printf("obj destroyed");
+	// printf("obj destroyed");
 }
 
 void memory::set_writeFile(fs::path* wF)
@@ -248,4 +249,7 @@ void memory::set_constantAddress(size_t address, int constant)
 bool memory::points_to_constant(size_t address)
 {
 	return _constantAddresses->find(address) != _constantAddresses->end();
+}
+memory::memory(size_t i) : memory() {
+        _size = i;
 }

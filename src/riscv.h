@@ -53,7 +53,6 @@ private:
   int set_funct3(int instruction, int value);
   int set_funct7(int instruction, int value);
 
-  void execute();
   void rtype(int instruction);
   void itype(int instruction);
   void stype(int instruction);
@@ -65,33 +64,6 @@ private:
   void branch(int instruction);
   void load(int instruction);
   void imm(int instruction);
-  void m_lui();
-  void m_auipc();
-  void m_jal();
-  void m_jalr();
-  void m_sb();
-  void m_sh();
-  void m_sw();
-  void m_addi();
-  void m_slti();
-  void m_sltiu();
-  void m_xori();
-  void m_ori();
-  void m_andi();
-  void m_slli();
-  void m_srli();
-  void m_srai();
-  void m_add();
-  void m_sub();
-  void m_sll();
-  void m_slt();
-  void m_sltu();
-  void m_xor();
-  void m_srl();
-  void m_sra();
-  void m_or();
-  void m_and();
-  void m_terminate();
   void init_reg(fs::path *reg_init_file, fs::path *reg_write_file);
   void init_mem(fs::path *mem_init_file, fs::path *mem_write_file);
   void init_instruction_set();
@@ -101,10 +73,14 @@ public:
   int parse_instruction(
       const std::string
           &instruction); // returns the machine code for the instruction
+  bool end_of_program();
+  void execute();
   void
-  read_program(fs::path &text, fs::path *mem_init_file,
-               fs::path *mem_write_file, fs::path *reg_init_file,
-               fs::path *reg_write_file); // reads a file and adds instructions
+  read_program(fs::path &text,
+               fs::path *mem_init_file = nullptr,
+               fs::path *mem_write_file = nullptr,
+               fs::path *reg_init_file = nullptr,
+               fs::path *reg_write_file = nullptr); // reads a file and adds instructions
                                           // to the instructions vector
   const std::vector<std::string> &get_instructions();
   riscv();

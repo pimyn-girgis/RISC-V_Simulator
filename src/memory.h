@@ -37,7 +37,7 @@ namespace fs = std::filesystem;
 class memory
 {
 private:
-	std::map<size_t, int>*				_block;							//	AW: memory block, address as key, data as value
+  std::map<size_t, int>*				_block;							//	AW: memory block, address as key, data as value
 	sectionAddresses*				_sectionAddresses;				//	AW: section labels, string is label .i.e .data and key, address as the value
 
 	size_t							_size;							///	AW:
@@ -102,6 +102,7 @@ public:
 
 	bool					is_address_valid(size_t address);					//AW: for sectionless memory
 
+        memory(size_t i);
 };
 
 #endif
