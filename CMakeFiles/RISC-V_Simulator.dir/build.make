@@ -69,79 +69,63 @@ include CMakeFiles/RISC-V_Simulator.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/RISC-V_Simulator.dir/flags.make
 
-CMakeFiles/RISC-V_Simulator.dir/src/genUtils.o: CMakeFiles/RISC-V_Simulator.dir/flags.make
-CMakeFiles/RISC-V_Simulator.dir/src/genUtils.o: src/genUtils.cpp
-CMakeFiles/RISC-V_Simulator.dir/src/genUtils.o: CMakeFiles/RISC-V_Simulator.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/RISC-V_Simulator.dir/src/genUtils.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RISC-V_Simulator.dir/src/genUtils.o -MF CMakeFiles/RISC-V_Simulator.dir/src/genUtils.o.d -o CMakeFiles/RISC-V_Simulator.dir/src/genUtils.o -c "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src/genUtils.cpp"
+CMakeFiles/RISC-V_Simulator.dir/src_copy/genUtils.o: CMakeFiles/RISC-V_Simulator.dir/flags.make
+CMakeFiles/RISC-V_Simulator.dir/src_copy/genUtils.o: src\ copy/genUtils.cpp
+CMakeFiles/RISC-V_Simulator.dir/src_copy/genUtils.o: CMakeFiles/RISC-V_Simulator.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/RISC-V_Simulator.dir/src_copy/genUtils.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RISC-V_Simulator.dir/src_copy/genUtils.o -MF CMakeFiles/RISC-V_Simulator.dir/src_copy/genUtils.o.d -o CMakeFiles/RISC-V_Simulator.dir/src_copy/genUtils.o -c "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src copy/genUtils.cpp"
 
-CMakeFiles/RISC-V_Simulator.dir/src/genUtils.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RISC-V_Simulator.dir/src/genUtils.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src/genUtils.cpp" > CMakeFiles/RISC-V_Simulator.dir/src/genUtils.i
+CMakeFiles/RISC-V_Simulator.dir/src_copy/genUtils.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RISC-V_Simulator.dir/src_copy/genUtils.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src copy/genUtils.cpp" > CMakeFiles/RISC-V_Simulator.dir/src_copy/genUtils.i
 
-CMakeFiles/RISC-V_Simulator.dir/src/genUtils.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RISC-V_Simulator.dir/src/genUtils.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src/genUtils.cpp" -o CMakeFiles/RISC-V_Simulator.dir/src/genUtils.s
+CMakeFiles/RISC-V_Simulator.dir/src_copy/genUtils.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RISC-V_Simulator.dir/src_copy/genUtils.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src copy/genUtils.cpp" -o CMakeFiles/RISC-V_Simulator.dir/src_copy/genUtils.s
 
-CMakeFiles/RISC-V_Simulator.dir/src/main.o: CMakeFiles/RISC-V_Simulator.dir/flags.make
-CMakeFiles/RISC-V_Simulator.dir/src/main.o: src/main.cpp
-CMakeFiles/RISC-V_Simulator.dir/src/main.o: CMakeFiles/RISC-V_Simulator.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/RISC-V_Simulator.dir/src/main.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RISC-V_Simulator.dir/src/main.o -MF CMakeFiles/RISC-V_Simulator.dir/src/main.o.d -o CMakeFiles/RISC-V_Simulator.dir/src/main.o -c "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src/main.cpp"
+CMakeFiles/RISC-V_Simulator.dir/src_copy/memory.o: CMakeFiles/RISC-V_Simulator.dir/flags.make
+CMakeFiles/RISC-V_Simulator.dir/src_copy/memory.o: src\ copy/memory.cpp
+CMakeFiles/RISC-V_Simulator.dir/src_copy/memory.o: CMakeFiles/RISC-V_Simulator.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/RISC-V_Simulator.dir/src_copy/memory.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RISC-V_Simulator.dir/src_copy/memory.o -MF CMakeFiles/RISC-V_Simulator.dir/src_copy/memory.o.d -o CMakeFiles/RISC-V_Simulator.dir/src_copy/memory.o -c "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src copy/memory.cpp"
 
-CMakeFiles/RISC-V_Simulator.dir/src/main.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RISC-V_Simulator.dir/src/main.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src/main.cpp" > CMakeFiles/RISC-V_Simulator.dir/src/main.i
+CMakeFiles/RISC-V_Simulator.dir/src_copy/memory.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RISC-V_Simulator.dir/src_copy/memory.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src copy/memory.cpp" > CMakeFiles/RISC-V_Simulator.dir/src_copy/memory.i
 
-CMakeFiles/RISC-V_Simulator.dir/src/main.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RISC-V_Simulator.dir/src/main.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src/main.cpp" -o CMakeFiles/RISC-V_Simulator.dir/src/main.s
+CMakeFiles/RISC-V_Simulator.dir/src_copy/memory.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RISC-V_Simulator.dir/src_copy/memory.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src copy/memory.cpp" -o CMakeFiles/RISC-V_Simulator.dir/src_copy/memory.s
 
-CMakeFiles/RISC-V_Simulator.dir/src/memory.o: CMakeFiles/RISC-V_Simulator.dir/flags.make
-CMakeFiles/RISC-V_Simulator.dir/src/memory.o: src/memory.cpp
-CMakeFiles/RISC-V_Simulator.dir/src/memory.o: CMakeFiles/RISC-V_Simulator.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/RISC-V_Simulator.dir/src/memory.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RISC-V_Simulator.dir/src/memory.o -MF CMakeFiles/RISC-V_Simulator.dir/src/memory.o.d -o CMakeFiles/RISC-V_Simulator.dir/src/memory.o -c "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src/memory.cpp"
+CMakeFiles/RISC-V_Simulator.dir/src_copy/test.o: CMakeFiles/RISC-V_Simulator.dir/flags.make
+CMakeFiles/RISC-V_Simulator.dir/src_copy/test.o: src\ copy/test.cpp
+CMakeFiles/RISC-V_Simulator.dir/src_copy/test.o: CMakeFiles/RISC-V_Simulator.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/RISC-V_Simulator.dir/src_copy/test.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RISC-V_Simulator.dir/src_copy/test.o -MF CMakeFiles/RISC-V_Simulator.dir/src_copy/test.o.d -o CMakeFiles/RISC-V_Simulator.dir/src_copy/test.o -c "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src copy/test.cpp"
 
-CMakeFiles/RISC-V_Simulator.dir/src/memory.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RISC-V_Simulator.dir/src/memory.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src/memory.cpp" > CMakeFiles/RISC-V_Simulator.dir/src/memory.i
+CMakeFiles/RISC-V_Simulator.dir/src_copy/test.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RISC-V_Simulator.dir/src_copy/test.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src copy/test.cpp" > CMakeFiles/RISC-V_Simulator.dir/src_copy/test.i
 
-CMakeFiles/RISC-V_Simulator.dir/src/memory.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RISC-V_Simulator.dir/src/memory.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src/memory.cpp" -o CMakeFiles/RISC-V_Simulator.dir/src/memory.s
-
-CMakeFiles/RISC-V_Simulator.dir/src/parser.o: CMakeFiles/RISC-V_Simulator.dir/flags.make
-CMakeFiles/RISC-V_Simulator.dir/src/parser.o: src/parser.cpp
-CMakeFiles/RISC-V_Simulator.dir/src/parser.o: CMakeFiles/RISC-V_Simulator.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/RISC-V_Simulator.dir/src/parser.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RISC-V_Simulator.dir/src/parser.o -MF CMakeFiles/RISC-V_Simulator.dir/src/parser.o.d -o CMakeFiles/RISC-V_Simulator.dir/src/parser.o -c "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src/parser.cpp"
-
-CMakeFiles/RISC-V_Simulator.dir/src/parser.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RISC-V_Simulator.dir/src/parser.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src/parser.cpp" > CMakeFiles/RISC-V_Simulator.dir/src/parser.i
-
-CMakeFiles/RISC-V_Simulator.dir/src/parser.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RISC-V_Simulator.dir/src/parser.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src/parser.cpp" -o CMakeFiles/RISC-V_Simulator.dir/src/parser.s
+CMakeFiles/RISC-V_Simulator.dir/src_copy/test.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RISC-V_Simulator.dir/src_copy/test.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/src copy/test.cpp" -o CMakeFiles/RISC-V_Simulator.dir/src_copy/test.s
 
 # Object files for target RISC-V_Simulator
 RISC__V_Simulator_OBJECTS = \
-"CMakeFiles/RISC-V_Simulator.dir/src/genUtils.o" \
-"CMakeFiles/RISC-V_Simulator.dir/src/main.o" \
-"CMakeFiles/RISC-V_Simulator.dir/src/memory.o" \
-"CMakeFiles/RISC-V_Simulator.dir/src/parser.o"
+"CMakeFiles/RISC-V_Simulator.dir/src_copy/genUtils.o" \
+"CMakeFiles/RISC-V_Simulator.dir/src_copy/memory.o" \
+"CMakeFiles/RISC-V_Simulator.dir/src_copy/test.o"
 
 # External object files for target RISC-V_Simulator
 RISC__V_Simulator_EXTERNAL_OBJECTS =
 
-RISC-V_Simulator: CMakeFiles/RISC-V_Simulator.dir/src/genUtils.o
-RISC-V_Simulator: CMakeFiles/RISC-V_Simulator.dir/src/main.o
-RISC-V_Simulator: CMakeFiles/RISC-V_Simulator.dir/src/memory.o
-RISC-V_Simulator: CMakeFiles/RISC-V_Simulator.dir/src/parser.o
+RISC-V_Simulator: CMakeFiles/RISC-V_Simulator.dir/src_copy/genUtils.o
+RISC-V_Simulator: CMakeFiles/RISC-V_Simulator.dir/src_copy/memory.o
+RISC-V_Simulator: CMakeFiles/RISC-V_Simulator.dir/src_copy/test.o
 RISC-V_Simulator: CMakeFiles/RISC-V_Simulator.dir/build.make
 RISC-V_Simulator: CMakeFiles/RISC-V_Simulator.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable RISC-V_Simulator"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable RISC-V_Simulator"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/RISC-V_Simulator.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

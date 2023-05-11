@@ -130,64 +130,49 @@ RISC-V_Simulator/fast:
 .PHONY : RISC-V_Simulator/fast
 
 # target to build an object file
-src/genUtils.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src/genUtils.o
-.PHONY : src/genUtils.o
+src_copy/genUtils.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src_copy/genUtils.o
+.PHONY : src_copy/genUtils.o
 
 # target to preprocess a source file
-src/genUtils.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src/genUtils.i
-.PHONY : src/genUtils.i
+src_copy/genUtils.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src_copy/genUtils.i
+.PHONY : src_copy/genUtils.i
 
 # target to generate assembly for a file
-src/genUtils.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src/genUtils.s
-.PHONY : src/genUtils.s
+src_copy/genUtils.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src_copy/genUtils.s
+.PHONY : src_copy/genUtils.s
 
 # target to build an object file
-src/main.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src/main.o
-.PHONY : src/main.o
+src_copy/memory.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src_copy/memory.o
+.PHONY : src_copy/memory.o
 
 # target to preprocess a source file
-src/main.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src/main.i
-.PHONY : src/main.i
+src_copy/memory.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src_copy/memory.i
+.PHONY : src_copy/memory.i
 
 # target to generate assembly for a file
-src/main.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src/main.s
-.PHONY : src/main.s
+src_copy/memory.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src_copy/memory.s
+.PHONY : src_copy/memory.s
 
 # target to build an object file
-src/memory.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src/memory.o
-.PHONY : src/memory.o
+src_copy/test.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src_copy/test.o
+.PHONY : src_copy/test.o
 
 # target to preprocess a source file
-src/memory.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src/memory.i
-.PHONY : src/memory.i
+src_copy/test.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src_copy/test.i
+.PHONY : src_copy/test.i
 
 # target to generate assembly for a file
-src/memory.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src/memory.s
-.PHONY : src/memory.s
-
-# target to build an object file
-src/parser.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src/parser.o
-.PHONY : src/parser.o
-
-# target to preprocess a source file
-src/parser.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src/parser.i
-.PHONY : src/parser.i
-
-# target to generate assembly for a file
-src/parser.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src/parser.s
-.PHONY : src/parser.s
+src_copy/test.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src_copy/test.s
+.PHONY : src_copy/test.s
 
 # Help Target
 help:
@@ -198,18 +183,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... RISC-V_Simulator"
-	@echo "... src/genUtils.o"
-	@echo "... src/genUtils.i"
-	@echo "... src/genUtils.s"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
-	@echo "... src/memory.o"
-	@echo "... src/memory.i"
-	@echo "... src/memory.s"
-	@echo "... src/parser.o"
-	@echo "... src/parser.i"
-	@echo "... src/parser.s"
+	@echo "... src_copy/genUtils.o"
+	@echo "... src_copy/genUtils.i"
+	@echo "... src_copy/genUtils.s"
+	@echo "... src_copy/memory.o"
+	@echo "... src_copy/memory.i"
+	@echo "... src_copy/memory.s"
+	@echo "... src_copy/test.o"
+	@echo "... src_copy/test.i"
+	@echo "... src_copy/test.s"
 .PHONY : help
 
 

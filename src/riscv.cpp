@@ -1,10 +1,25 @@
 #include "riscv.h"
+#include "genUtils.h"
 
-instruction::instruction(const std::string &assembly, const int machine)
-    : assembly(assembly), machine(machine) {}
+void riscv::init_reg(fs::path *reg_init_file, fs::path *reg_write_file)
+{
+  reg = std::move(memory(0x00000020, reg_init_file, reg_write_file)); // 32 registers
+  reg.init_memory(reg.parse_init_file());
+  reg.set_constantAddress(0, 0);
+}
 
-riscv::riscv(fs::path *mem_init_file, fs::path *mem_write_file,
-             fs::path *reg_init_file, fs::path *reg_write_file) {
+void riscv::init_mem(fs::path *mem_init_file, fs::path *mem_write_file)
+{
+  mem = std::move(memory(0xffffffff, mem_init_file, mem_write_file)); // 4GB memory
+  mem.init_memory(mem.parse_init_file());
+  mem.set_sectionAddresses(new std::vector<std::pair<const char *, size_t>>(
+      {{"text", 0x00000000}, {"data", 0x00400000}, {"stack", 0x00800000}}));
+      // text starts at 0MB, data at 4MB, stack at 8MB
+  pc = 0;
+}
+
+void riscv::init_instruction_set()
+{
   instruction_set = {
       {"lui", 0x00000037},    {"auipc", 0x00000017}, {"jal", 0x0000006f},
       {"jalr", 0x00000067},   {"beq", 0x00000063},   {"bne", 0x00001063},
@@ -19,10 +34,12 @@ riscv::riscv(fs::path *mem_init_file, fs::path *mem_write_file,
       {"slt", 0x00002033},    {"sltu", 0x00003033},  {"xor", 0x00004033},
       {"srl", 0x00005033},    {"sra", 0x40005033},   {"or", 0x00006033},
       {"and", 0x00007033},    {"fence", 0x0000000f}, {"ecall", 0x00000073},
-      {"ebreak", 0x00100073},
-  };
+      {"ebreak", 0x00100073}};
+}
 
-  registers = {
+void riscv::init_registers_map()
+{
+  registers_map = {
       {"zero", 0}, {"ra", 1},   {"sp", 2},   {"gp", 3},   {"tp", 4},
       {"t0", 5},   {"t1", 6},   {"t2", 7},   {"s0", 8},   {"s1", 9},
       {"a0", 10},  {"a1", 11},  {"a2", 12},  {"a3", 13},  {"a4", 14},
@@ -35,13 +52,12 @@ riscv::riscv(fs::path *mem_init_file, fs::path *mem_write_file,
       {"x13", 13}, {"x14", 14}, {"x15", 15}, {"x16", 16}, {"x17", 17},
       {"x18", 18}, {"x19", 19}, {"x20", 20}, {"x21", 21}, {"x22", 22},
       {"x23", 23}, {"x24", 24}, {"x25", 25}, {"x26", 26}, {"x27", 27},
-      {"x28", 28}, {"x29", 29}, {"x30", 30}, {"x31", 31}, {"pc", 32},
-  };
+      {"x28", 28}, {"x29", 29}, {"x30", 30}, {"x31", 31}};
+}
 
-  mem = std::move(memory(0x40000000, mem_init_file, mem_write_file)); // 4GB memory
-  reg = std::move(memory(0x00000011, reg_init_file, reg_write_file)); // 32 registers + pc
-  mem.init_memory(memory::parse_init_file());
-  reg.init_memory(memory::parse_init_file());
+riscv::riscv() {
+  init_registers_map();
+  init_instruction_set();
 }
 
 int riscv::parse_operands(int machine, char *operands[3], int inst_num) {
@@ -51,40 +67,40 @@ int riscv::parse_operands(int machine, char *operands[3], int inst_num) {
     case 0x67: // jalr
     case 0x03: // load
       // jalr and load instructions have the same format
-      machine = genUtils::set_bits(machine, 7, 11, registers[operands[0]]);
+      machine = genUtils::set_bits(machine, 7, 11, registers_map[operands[0]]);
       machine = genUtils::set_bits(machine, 20, 31, atoi(operands[1]));
-      machine = genUtils::set_bits(machine, 15, 19, registers[operands[2]]);
+      machine = genUtils::set_bits(machine, 15, 19, registers_map[operands[2]]);
       break;
     case 0x13: // imm
-      machine = genUtils::set_bits(machine, 7, 11, registers[operands[0]]);
-      machine = genUtils::set_bits(machine, 15, 19, registers[operands[1]]);
-      machine = genUtils::set_bits(machine, 20, 31, atoi(operands[2]));
+      machine = genUtils::set_bits(machine, 7, 11, registers_map[operands[0]]);
+      machine = genUtils::set_bits(machine, 15, 19, registers_map[operands[1]]);
+      machine = genUtils::set_bits(machine, 20, 31, atoi(operands[2][0] == '-'? operands[2] + 1 : operands[2]));
       break;
     case 0x23: // store
-      machine = genUtils::set_bits(machine, 15, 19, registers[operands[0]]);
-      machine = genUtils::set_bits(machine, 20, 24, registers[operands[2]]);
+      machine = genUtils::set_bits(machine, 15, 19, registers_map[operands[0]]);
+      machine = genUtils::set_bits(machine, 20, 24, registers_map[operands[2]]);
       machine = genUtils::set_bits(machine, 7, 11, atoi(operands[1]));
       machine = genUtils::set_bits(machine, 25, 31, atoi(operands[1]) >> 5);
       break;
     case 0x63: // branch
-      machine = genUtils::set_bits(machine, 15, 19, registers[operands[0]]);
-      machine = genUtils::set_bits(machine, 20, 24, registers[operands[1]]);
-      machine = genUtils::set_bits(machine, 7, 11, labels[operands[2]]);
-      machine = genUtils::set_bits(machine, 25, 31, labels[operands[2]] >> 5);
+      machine = genUtils::set_bits(machine, 15, 19, registers_map[operands[0]]);
+      machine = genUtils::set_bits(machine, 20, 24, registers_map[operands[1]]);
+      machine = genUtils::set_bits(machine, 7, 11, labels[operands[2]] - inst_num);
+      machine = genUtils::set_bits(machine, 25, 31, (labels[operands[2]] - inst_num) >> 5);
       break;
     case 0x33: // rtype
-      machine = genUtils::set_bits(machine, 7, 11, registers[operands[0]]);
-      machine = genUtils::set_bits(machine, 15, 19, registers[operands[1]]);
-      machine = genUtils::set_bits(machine, 20, 24, registers[operands[2]]);
+      machine = genUtils::set_bits(machine, 7, 11, registers_map[operands[0]]);
+      machine = genUtils::set_bits(machine, 15, 19, registers_map[operands[1]]);
+      machine = genUtils::set_bits(machine, 20, 24, registers_map[operands[2]]);
       break;
     case 0x6f: // jal
-      machine = genUtils::set_bits(machine, 7, 11, registers[operands[0]]);
-      machine = genUtils::set_bits(machine, 12, 19, labels[operands[1]]);
+      machine = genUtils::set_bits(machine, 7, 11, registers_map[operands[0]]);
+      machine = genUtils::set_bits(machine, 12, 31, labels[operands[1]] - inst_num);
       break;
     case 0x37: // lui
     case 0x17: // auipc
-      machine = genUtils::set_bits(machine, 7, 11, registers[operands[0]]);
-      machine = genUtils::set_bits(machine, 12, 31, atoi(operands[1]));
+      machine = genUtils::set_bits(machine, 7, 11, registers_map[operands[0]]);
+      machine = genUtils::set_bits(machine, 12, 31, atoi(operands[2][0] == '-'? operands[2] + 1 : operands[2]));
       break;
     case 0x0f: // fence
     case 0x73: // ecall, ebreak
@@ -108,14 +124,14 @@ int riscv::parse_instruction(const std::string &instruction) {
   char *mnemonic = strtok(str, delim); // mnemonic is the first token
   char *operands[3];                   // operands are the next tokens
   // assumes 3 operands, if there are less, the rest are NULL
-  // if there are more, the rest are ignored
+  // if there are more, the rest are ignored (helps with comments)
   for (int i = 0; i < 3; i++) {
     operands[i] = strtok(NULL, delim);
   }
 
   auto it = instruction_set.find(mnemonic);
   if (it != instruction_set.end()) {
-        machine = parse_operands(it->second, operands);
+        machine = parse_operands(it->second, operands, &instruction - &instructions[0]);
   } else {
     std::cout << "Error: invalid instruction mnemonic: " << mnemonic << '\n';
   }
@@ -126,20 +142,33 @@ int riscv::parse_instruction(const std::string &instruction) {
 
 void riscv::parse_program() {
   for (auto &instruction : instructions) {
-    instruction.machine = parse_instruction(instruction.assembly);
+    mem.write_to_memory(pc++, parse_instruction(instruction));
   }
+  pc = 0;
 }
 
-void riscv::read_program(const std::string &filename) {
+void riscv::read_program(fs::path &text,
+                         fs::path *mem_init_file = nullptr,
+                         fs::path *mem_write_file = nullptr,
+                         fs::path *reg_init_file = nullptr,
+                         fs::path *reg_write_file = nullptr) {
   std::ifstream file;
 
-  file.open(filename);
+  file.open(text);
   std::string line;
   while (!file.eof()) {
     getline(file, line);
     read_line(line);
   }
   file.close();
+
+  if(mem_init_file != nullptr && mem_write_file != nullptr) {
+    init_mem(mem_init_file, mem_write_file);
+  }
+  if(reg_init_file != nullptr && reg_write_file != nullptr) {
+    init_reg(reg_init_file, reg_write_file);
+  }
+
   parse_program();
 }
 
@@ -159,22 +188,333 @@ void riscv::read_line(const std::string &line) {
     labels[label] = instructions.size();
     read_line(line.substr(label_pos + 1));
   } else {
-    // machine code initialized to 0 to make sure that the labels are defined
-    // before they are used
-    instructions.emplace_back(line, 0);
+    instructions.emplace_back(line);
   }
 }
 
-void riscv::set_instruction_set() {}
-const std::vector<instruction> &riscv::get_instructions() {
+const std::vector<std::string> &riscv::get_instructions() {
     return instructions;
 }
 
-void riscv::branch() {
-  int instruction = instructions[0].machine;
-  int branch_type = genUtils::get_bits(instruction, 12, 14);
-  switch (branch_type) {
-    case 000: // beq
+void riscv::load(int instruction)
+{
+  int loop_len = 0;
+  bool extend = false;
+  
+  switch (get_funct3(instruction)) {
+    case 0b000: // lb
+      loop_len = 1;
+      break;
+    case 0b001: // lh
+      loop_len = 2;
+      break;
+    case 0b010: // lw
+      loop_len = 4;
+      break;
+    case 0b100: // lbu
+      loop_len = 1;
+      extend = true;
+      break;
+    case 0b101: // lhu
+      loop_len = 2;
+      extend = true;
       break;
   }
+
+  int write_value = 0;
+  const int load_addr = reg.read_from_memory(get_rs1(instruction)) +
+                  genUtils::sign_extend(get_imm(instruction), 12);
+  
+  for (int i = 0; i < loop_len; i++) {
+    write_value |= mem.read_from_memory(load_addr + i) << (8 * i);
+  }
+  reg.write_to_memory(get_rd(instruction),
+                      extend ? genUtils::sign_extend(write_value, loop_len * 8)
+                             : write_value);
+}
+
+//ADDI SLTI SLTIU XORI ORI ANDI SLLI SRLI SRAI
+void riscv::imm(int instruction)
+{
+  int rd  = reg.read_from_memory(get_rd(instruction));
+  int rs1 = reg.read_from_memory(get_rs1(instruction));
+  int imm = genUtils::sign_extend(get_imm(instruction), 12);
+  int shamt = get_shamt(instruction);
+
+  int write_value = 0;
+  switch (get_funct3(instruction)) {
+    case 000: // addi
+      write_value = rs1 + imm;
+      break;
+    case 010: // slti
+      write_value = rs1 < imm;
+      break;
+    case 011: // sltiu
+      write_value = (unsigned int)rs1 < (unsigned int)imm;
+      break;
+    case 100: // xori
+      write_value = rs1 ^ imm;
+      break;
+    case 110: // ori
+      write_value = rs1 | imm;
+      break;
+    case 111: // andi
+      write_value = rs1 & imm;
+      break;
+    case 001: // slli
+      write_value = rs1 << imm;
+      break;
+    case 101: // srli srai
+      write_value = rs1 >> shamt;
+      if (get_funct7(instruction)) { //srai
+        write_value = genUtils::sign_extend(write_value, 32 - shamt);
+      }
+      break;
+  }
+  reg.write_to_memory(rd, write_value);
+}
+
+void riscv::utype(int instruction)
+{
+  int rd  = reg.read_from_memory(get_rd(instruction));
+  int imm = genUtils::sign_extend(get_imm(instruction), 20) << 12;
+
+  switch (get_opcode(instruction)) {
+    case 0b0110111: // lui
+      reg.write_to_memory(rd, imm);
+      break;
+    case 0b0010111: // auipc
+      reg.write_to_memory(rd, pc + imm);
+      break;
+  }
+}
+
+void riscv::btype(int instruction) 
+{
+  int rs1 = reg.read_from_memory(get_rs1(instruction));
+  int rs2 = reg.read_from_memory(get_rs2(instruction));
+  bool branch = false;
+
+  switch (get_funct3(instruction)) {
+    case 000: // beq
+      branch = (rs1 == rs2);
+      break;
+    case 001: // bne
+      branch = (rs1 != rs2);
+      break;
+    case 100: // blt
+      branch = (rs1 < rs2);
+      break;
+    case 101: // bge
+      branch = (rs1 >= rs2);
+      break;
+    case 110: // bltu
+      branch = ((unsigned int)rs1 < (unsigned int)rs2);
+      break;
+    case 111: // bgeu
+      branch = ((unsigned int)rs1 >= (unsigned int)rs2);
+      break;
+  }
+
+  if (branch) {
+    pc += genUtils::sign_extend(get_sep_imm(instruction), 12);
+  }
+}
+
+void riscv::jtype(int instruction) {
+  int rd = get_rd(instruction);
+  int imm = genUtils::sign_extend(get_upp_imm(instruction), 20);
+  reg.write_to_memory(rd, 4 * (pc + 1));
+  pc += imm;
+}
+
+void riscv::itype(int instruction) {
+  switch (get_opcode(instruction)) {
+    case 0b0000011: // lb lh lw lbu lhu
+      load(instruction);
+      break;
+    case 0b0010011: // addi slti sltiu xori ori andi slli srli srai
+      imm(instruction);
+      break;
+  }
+}
+
+void riscv::rtype(int instruction) { // ADD SUB SLL SLT SLTU XOR SRL SRA OR AND
+  int rd = get_rd(instruction);
+  int rs1 = reg.read_from_memory(get_rs1(instruction));
+  int rs2 = reg.read_from_memory(get_rs2(instruction));
+  int write_value = 0;
+  switch (get_funct3(instruction)) {
+    case 000: // add sub
+      write_value = rs1 + rs2;
+      if (get_funct7(instruction)) { // sub
+        write_value = rs1 - rs2;
+      }
+      break;
+    case 001: // sll
+      write_value = rs1 << rs2;
+      break;
+    case 010: // slt
+      write_value = rs1 < rs2;
+      break;
+    case 011: // sltu
+      write_value = (unsigned int)rs1 < (unsigned int)rs2;
+      break;
+    case 100: // xor
+      write_value = rs1 ^ rs2;
+      break;
+    case 101: // srl sra
+      write_value = rs1 >> rs2;
+      if (get_funct7(instruction)) { // sra
+        write_value = genUtils::sign_extend(write_value, 32 - rs2);
+      }
+      break;
+    case 110: // or
+      write_value = rs1 | rs2;
+      break;
+    case 111: // and
+      write_value = rs1 & rs2;
+      break;
+  }
+  reg.write_to_memory(rd, write_value);
+}
+
+void riscv::stype(int instruction) {
+  int write_value = reg.read_from_memory(get_rs1(instruction));
+  int address = reg.read_from_memory(get_rs2(instruction)) +
+                genUtils::sign_extend(get_sep_imm(instruction), 12);
+
+  switch (get_funct3(instruction)) {
+    case 000: // sb
+      mem.write_to_memory(address, write_value & 0xFF);
+      break;
+    case 001: // sh
+      mem.write_to_memory(address + 1, (write_value >> 8) & 0xFF);
+      mem.write_to_memory(address, write_value & 0xFF);
+      break;
+    case 010: // sw
+      mem.write_to_memory(address, (write_value >> 24) & 0xFF);
+      mem.write_to_memory(address + 1, (write_value >> 16) & 0xFF);
+      mem.write_to_memory(address + 2, (write_value >> 8) & 0xFF);
+      mem.write_to_memory(address + 3, write_value & 0xFF);
+      break;
+  }
+}
+
+void riscv::execute() {
+  int instruction = mem.read_from_memory(pc);
+  
+  switch(get_opcode(instruction)) {
+    case 0b0110111: // lui
+    case 0b0010111: // auipc
+      utype(instruction);
+      break;
+    case 0b1101111: // jal
+      jtype(instruction);
+      break;
+    case 0b1100111: // jalr
+      reg.write_to_memory(get_rd(instruction), 4 * (pc + 1));
+      pc = reg.read_from_memory(get_rs1(instruction)) + genUtils::sign_extend(get_imm(instruction), 12);
+      break;
+    case 0b1100011: // btype
+      btype(instruction);
+      break;
+    case 0b0000011: // load
+    case 0b0010011: // imm
+      itype(instruction);
+      break;
+    case 0b0100011: // store
+      stype(instruction);
+      break;
+    case 0b0110011: // reg
+      rtype(instruction);
+      break;
+    case 0b0001111: // fence
+    case 0b1110011: // system
+    // terminate program
+      pc = -1;
+      break;
+  }
+}
+
+int riscv::get_rd(int instruction) {
+  return genUtils::get_bits(instruction, 7, 11);
+}
+
+int riscv::get_rs1(int instruction) {
+  return genUtils::get_bits(instruction, 15, 19);
+}
+
+int riscv::get_rs2(int instruction) {
+  return genUtils::get_bits(instruction, 20, 24);
+}
+
+int riscv::get_imm(int instruction) {
+  return genUtils::get_bits(instruction, 20, 31);
+}
+
+int riscv::get_shamt(int instruction) {
+  return genUtils::get_bits(instruction, 20, 24);
+}
+
+int riscv::get_sep_imm(int instruction) {
+  return genUtils::get_bits(instruction, 7, 11) |
+         (genUtils::get_bits(instruction, 25, 31) << 5);
+}
+
+int riscv::get_upp_imm(int instruction) {
+  return genUtils::get_bits(instruction, 12, 31);
+}
+
+int riscv::set_rd(int instruction, int value) {
+  return genUtils::set_bits(instruction, 7, 11, value);
+}
+
+int riscv::set_rs1(int instruction, int value) {
+  return genUtils::set_bits(instruction, 15, 19, value);
+}
+
+int riscv::set_rs2(int instruction, int value) {
+  return genUtils::set_bits(instruction, 20, 24, value);
+}
+
+int riscv::set_imm(int instruction, int value) {
+  return genUtils::set_bits(instruction, 20, 31, value);
+}
+
+int riscv::set_shamt(int instruction, int value) {
+  return genUtils::set_bits(instruction, 20, 24, value);
+}
+
+int riscv::set_sep_imm(int instruction, int value) {
+  return genUtils::set_bits(instruction, 7, 11, value) |
+         (genUtils::set_bits(instruction, 25, 31, value >> 5));
+}
+
+int riscv::get_opcode(int instruction) {
+  return genUtils::get_bits(instruction, 0, 6);
+}
+
+int riscv::get_funct3(int instruction) {
+  return genUtils::get_bits(instruction, 12, 14);
+}
+
+int riscv::get_funct7(int instruction) {
+  return genUtils::get_bits(instruction, 25, 31);
+}
+
+int riscv::set_opcode(int instruction, int value) {
+  return genUtils::set_bits(instruction, 0, 6, value);
+}
+
+int riscv::set_funct3(int instruction, int value) {
+  return genUtils::set_bits(instruction, 12, 14, value);
+}
+
+int riscv::set_funct7(int instruction, int value) {
+  return genUtils::set_bits(instruction, 25, 31, value);
+}
+
+int riscv::set_upp_imm(int instruction, int value) {
+  return genUtils::set_bits(instruction, 12, 31, value);
 }
