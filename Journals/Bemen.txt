@@ -1,0 +1,4 @@
+May 05 06:01 pm Bemen:  Made code cross_platform and fixed some general errors
+May 05 08:48 pm Bemen:  Implemented more functions in the memory class
+May 09 06:58 pm Bemen:  Implemented riscv class.
+May 11 02:34 PM Bemen:  Modified riscv class

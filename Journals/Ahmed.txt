@@ -1,0 +1,4 @@
+May 04 03:51 am Ahmed:  implemented a base for memory class
+May 04 07:51 pm Ahmed:  completed parsing for memory initialisation, printing on console
+May 05 01:51 pm Ahmed:  completed memory class write to file, padding for printing/write
+May 10 10:20 pm Ahmed:  Modifications in memory class
