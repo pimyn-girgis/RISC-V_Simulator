@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>fileButtonMenu</class>
+ <widget class="QWidget" name="fileButtonMenu">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>102</width>
+    <height>87</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#fileButtonMenu{
+
+background-color: rgb(42, 41, 39)
+}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0">
+    <widget class="QPushButton" name="openButton">
+     <property name="styleSheet">
+      <string notr="true">
+QPushButton{
+Text-align: left;
+	font: 9pt &quot;JetBrains Mono&quot;;
+	color:rgb(103, 100, 97)
+}</string>
+     </property>
+     <property name="text">
+      <string>open</string>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QPushButton" name="saveButton">
+     <property name="styleSheet">
+      <string notr="true">
+QPushButton{
+Text-align: left;
+	font: 9pt &quot;JetBrains Mono&quot;;
+	color:rgb(103, 100, 97)
+}</string>
+     </property>
+     <property name="text">
+      <string>save</string>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

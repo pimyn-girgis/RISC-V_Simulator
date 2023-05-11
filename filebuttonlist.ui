@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>fileButtonList</class>
+ <widget class="QWidget" name="fileButtonList">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>374</width>
+    <height>439</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#fileButtonList
+{
+background-color:rgb(42, 41, 39);
+border: 2px solid rgb(69, 67, 65);
+border-radius: 5px
+
+}</string>
+  </property>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>78</y>
+     <width>201</width>
+     <height>261</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>big button</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

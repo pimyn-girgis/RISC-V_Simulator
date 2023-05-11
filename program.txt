@@ -1,3 +1,19 @@
-Hello
-This is me
-Who are you?
+lui t0, 534321
+addi t0,t0,312
+
+addi t1,zero,5
+bne t0,t1,L1
+L2:
+blt t0,t1,L3
+L4:
+ebreak
+L1:
+srl t2,t0,t1
+sra t2,t0,t1
+xori t3,t2,-1
+bgeu t2,t3, L2
+
+L3:
+xor t2,t0,t1
+addi a0,zero,-50
+bltu t1,a0,L4

@@ -1,6 +1,0 @@
-May 01 07:00 pm Magd :  Case skeleton for the 40 instructions
-May 01 08:11 pm Magd :  implemented a tokenization system for text extraction that allows for operations to access relevant data
-May 05 07:46 pm Magd :  Completed initialization of registers and made the function that translates instructions into type void
-May 09 07:39 pm Magd :  Fixed critical error in parsing method and created inner parsing functions to reduce code redundancy.
-May 11 09:07 pm Magd :  Created the three test programs
-May 11 11:38 pm Magd :  Wrote the implementation segment of the report

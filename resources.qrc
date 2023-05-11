@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/resources">
+        <file>RAWRS.png</file>
+        <file>EXIT.png</file>
+        <file>MAXIM.png</file>
+        <file>MINIM.png</file>
+        <file>MAXIMIN .png</file>
+    </qresource>
+</RCC>
