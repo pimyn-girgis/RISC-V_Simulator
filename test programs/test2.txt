@@ -1,0 +1,48 @@
+auipc s0,64528 #lw, lh, lhu
+addi s0,s0,0
+auipc s1,64528 #lb, lbu
+addi s1,s1,52
+auipc s2,64528 #sw
+addi s2,s2,4
+auipc s3,64528 #sh
+addi s3,s3,16
+auipc s4,64528 #sb
+addi s4,s4,33
+
+jal ra,func
+
+ecall
+
+func:
+addi t0,zero,5
+
+addi t3,zero,0 #counter
+
+func_loop:
+bge t3,t0,exit
+slli t1,t3,2
+slli t2,t3,1
+
+add a0,s0,t1
+add a1,s0,t2
+add a2,s1,t3
+
+lw x21,0(a0)
+lh x22,0(a1)
+lb x23,0(a2)
+lhu x24,0(a1)
+lbu x25,0(a2)
+
+add a0,s2,t1
+add a1,s3,t2
+add a2,s4,t3
+
+sw x21,0(a0)
+sh x22,0(a1)
+sb x23,0(a2)
+
+addi t3,t3,1
+beq zero,zero,func_loop
+
+exit:
+jalr zero,0(ra)
