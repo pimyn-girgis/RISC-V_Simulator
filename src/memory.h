@@ -84,9 +84,11 @@ public:
 
 	//	AW: writes given data to memory block member given address and data in a pair
 	void					write_to_memory(size_t, int);
+	void					write_to_memory(size_t, int, int);
 
 	//	AW: reads data given an address (basically a getter for data)
 	int						read_from_memory(size_t);
+	int						read_from_memory(size_t, int);
 	
 	///	AW: CLI
 	///	print option: according to the char we print in Hex, Dec

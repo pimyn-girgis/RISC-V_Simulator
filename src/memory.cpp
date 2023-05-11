@@ -253,3 +253,21 @@ bool memory::points_to_constant(size_t address)
 memory::memory(size_t i) : memory() {
         _size = i;
 }
+
+void memory::write_to_memory(size_t address, int value, int byte_count) {
+	// using big indian
+	address += byte_count;
+	while(byte_count--) {
+		write_to_memory(--address, value & 0xFF);
+		value >>= 8;
+	}
+}
+
+int memory::read_from_memory(size_t address, int byte_count) {
+	int ret = 0;
+	address += byte_count;
+	while(byte_count--) {
+		ret <<= 8;
+		ret |= read_from_memory(--address);
+	}
+}

@@ -81,12 +81,12 @@ clean: CMakeFiles/RISC-V_Simulator.dir/clean
 CMakeFiles/RISC-V_Simulator.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/CMakeFiles" --progress-num=1,2,3,4 "Built target RISC-V_Simulator"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/CMakeFiles" --progress-num=1,2,3,4,5 "Built target RISC-V_Simulator"
 .PHONY : CMakeFiles/RISC-V_Simulator.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/RISC-V_Simulator.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/CMakeFiles" 4
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/CMakeFiles" 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/RISC-V_Simulator.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/CMakeFiles" 0
 .PHONY : CMakeFiles/RISC-V_Simulator.dir/rule

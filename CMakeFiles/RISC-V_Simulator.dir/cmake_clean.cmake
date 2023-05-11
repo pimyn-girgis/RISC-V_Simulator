@@ -1,10 +1,12 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/RISC-V_Simulator.dir/src_copy/genUtils.o"
-  "CMakeFiles/RISC-V_Simulator.dir/src_copy/genUtils.o.d"
-  "CMakeFiles/RISC-V_Simulator.dir/src_copy/memory.o"
-  "CMakeFiles/RISC-V_Simulator.dir/src_copy/memory.o.d"
-  "CMakeFiles/RISC-V_Simulator.dir/src_copy/test.o"
-  "CMakeFiles/RISC-V_Simulator.dir/src_copy/test.o.d"
+  "CMakeFiles/RISC-V_Simulator.dir/src/genUtils.o"
+  "CMakeFiles/RISC-V_Simulator.dir/src/genUtils.o.d"
+  "CMakeFiles/RISC-V_Simulator.dir/src/memory.o"
+  "CMakeFiles/RISC-V_Simulator.dir/src/memory.o.d"
+  "CMakeFiles/RISC-V_Simulator.dir/src/riscv.o"
+  "CMakeFiles/RISC-V_Simulator.dir/src/riscv.o.d"
+  "CMakeFiles/RISC-V_Simulator.dir/src/test.o"
+  "CMakeFiles/RISC-V_Simulator.dir/src/test.o.d"
   "RISC-V_Simulator"
   "RISC-V_Simulator.pdb"
 )

@@ -76,9 +76,9 @@ int riscv::parse_operands(int machine, char *operands[3], int inst_num) {
     case 0x67: // jalr
     case 0x03: // load
       // jalr and load instructions have the same format
-      machine = genUtils::set_bits(machine, 7, 11, registers_map[operands[0]]);
-      machine = genUtils::set_bits(machine, 20, 31, atoi(operands[1]));
-      machine = genUtils::set_bits(machine, 15, 19, registers_map[operands[2]]);
+      machine = set_rd(machine, registers_map[operands[0]]);
+      machine = set_imm(machine, atoi(operands[1]));
+      machine = set_rs1(machine, registers_map[operands[2]]);
       break;
     case 0x13: // imm
       machine = set_rd(machine, registers_map[operands[0]]);
@@ -86,10 +86,9 @@ int riscv::parse_operands(int machine, char *operands[3], int inst_num) {
       machine = set_imm(machine, atoi(operands[2]));
       break;
     case 0x23: // store
-      machine = genUtils::set_bits(machine, 15, 19, registers_map[operands[0]]);
-      machine = genUtils::set_bits(machine, 20, 24, registers_map[operands[2]]);
-      machine = genUtils::set_bits(machine, 7, 11, atoi(operands[1]));
-      machine = genUtils::set_bits(machine, 25, 31, atoi(operands[1]) >> 5);
+      machine = set_rs1(machine, registers_map[operands[0]]);
+      machine = set_rs2(machine, registers_map[operands[2]]);
+      machine = set_sep_imm(machine, atoi(operands[1]));
       break;
     case 0x63: // branch
       machine = genUtils::set_bits(machine, 15, 19, registers_map[operands[0]]);
@@ -387,26 +386,24 @@ void riscv::stype(int instruction) {
   int write_value = reg.read_from_memory(get_rs1(instruction));
   int address = reg.read_from_memory(get_rs2(instruction)) +
                 genUtils::sign_extend(get_sep_imm(instruction), 12);
+  int byte_count = 0;
 
   switch (get_funct3(instruction)) {
     case 0b000: // sb
-      mem.write_to_memory(address, write_value & 0xFF);
+      byte_count = 1;
       break;
     case 0b001: // sh
-      mem.write_to_memory(address + 1, (write_value >> 8) & 0xFF);
-      mem.write_to_memory(address, write_value & 0xFF);
+      byte_count = 2;
       break;
     case 0b010: // sw
-      mem.write_to_memory(address, (write_value >> 24) & 0xFF);
-      mem.write_to_memory(address + 1, (write_value >> 16) & 0xFF);
-      mem.write_to_memory(address + 2, (write_value >> 8) & 0xFF);
-      mem.write_to_memory(address + 3, write_value & 0xFF);
+      byte_count = 4;
       break;
   }
+      mem.write_to_memory(address, write_value, byte_count);
 }
 
 void riscv::execute() {
-  int instruction = mem.read_from_memory(pc);
+  int instruction = mem.read_from_memory(pc, 4);
 
   switch(get_opcode(instruction)) {
     case 0b0110111: // lui
