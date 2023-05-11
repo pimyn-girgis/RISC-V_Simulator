@@ -6,7 +6,7 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I"/Users/bemen/Documents/AUC/22_23/Spring/CSCE 2303/RISC-V_Simulator/include"
 
-CXX_FLAGSarm64 = -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
+CXX_FLAGSarm64 = -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk   -w
 
-CXX_FLAGS = -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
+CXX_FLAGS = -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk   -w
 

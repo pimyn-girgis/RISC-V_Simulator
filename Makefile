@@ -145,6 +145,21 @@ src/genUtils.s:
 .PHONY : src/genUtils.s
 
 # target to build an object file
+src/main.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src/main.o
+.PHONY : src/main.o
+
+# target to preprocess a source file
+src/main.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src/main.i
+.PHONY : src/main.i
+
+# target to generate assembly for a file
+src/main.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src/main.s
+.PHONY : src/main.s
+
+# target to build an object file
 src/memory.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src/memory.o
 .PHONY : src/memory.o
@@ -174,21 +189,6 @@ src/riscv.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src/riscv.s
 .PHONY : src/riscv.s
 
-# target to build an object file
-src/test.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src/test.o
-.PHONY : src/test.o
-
-# target to preprocess a source file
-src/test.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src/test.i
-.PHONY : src/test.i
-
-# target to generate assembly for a file
-src/test.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISC-V_Simulator.dir/build.make CMakeFiles/RISC-V_Simulator.dir/src/test.s
-.PHONY : src/test.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -201,15 +201,15 @@ help:
 	@echo "... src/genUtils.o"
 	@echo "... src/genUtils.i"
 	@echo "... src/genUtils.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 	@echo "... src/memory.o"
 	@echo "... src/memory.i"
 	@echo "... src/memory.s"
 	@echo "... src/riscv.o"
 	@echo "... src/riscv.i"
 	@echo "... src/riscv.s"
-	@echo "... src/test.o"
-	@echo "... src/test.i"
-	@echo "... src/test.s"
 .PHONY : help
 
 

@@ -70,6 +70,8 @@ private:
   void init_registers_map();
 
 public:
+  const memory &get_mem();
+  const memory &get_reg();
   int parse_instruction(
       const std::string
           &instruction); // returns the machine code for the instruction

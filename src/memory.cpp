@@ -176,13 +176,13 @@ memory::memory(std::map<size_t, int>* b, sectionAddresses* sA, size_t s, fs::pat
 
 memory::~memory()
 {
-	delete _block;
-	delete _sectionAddresses;
-	delete _writeFile;
-	delete _initFile;
-	delete _constantAddresses;
+	// delete _block;
+	// delete _sectionAddresses;
+	// delete _writeFile;
+	// delete _initFile;
+	// delete _constantAddresses;
 
-	printf("obj destroyed");
+	// printf("obj destroyed");
 }
 
 void memory::set_writeFile(fs::path* wF)
@@ -265,10 +265,9 @@ void memory::write_to_memory(size_t address, int value, int byte_count) {
 
 int memory::read_from_memory(size_t address, int byte_count) {
 	int ret = 0;
-	address += byte_count;
 	while(byte_count--) {
 		ret <<= 8;
-		ret |= read_from_memory(--address);
+		ret |= read_from_memory(address++);
 	}
 	return ret;
 }
