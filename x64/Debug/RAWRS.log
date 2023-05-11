@@ -1,15 +1,44 @@
-﻿  parser.cpp
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\parser.cpp(83,8): warning C4101: 'nextInstruction': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\parser.cpp(970,6): warning C4101: 'immediate': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\parser.cpp(996,6): warning C4101: 'immediate': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\parser.cpp(1022,6): warning C4101: 'immediate': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\parser.cpp(1048,6): warning C4101: 'immediate': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\parser.cpp(1074,6): warning C4101: 'immediate': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\parser.cpp(1100,6): warning C4101: 'immediate': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\parser.cpp(1126,6): warning C4101: 'immediate': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\parser.cpp(1152,6): warning C4101: 'immediate': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\parser.cpp(1178,6): warning C4101: 'immediate': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\parser.cpp(1204,6): warning C4101: 'immediate': unreferenced local variable
-D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\parser.cpp(1230,6): warning C4101: 'immediate': unreferenced local variable
-  LINK : D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\x64\Debug\RAWRS.exe not found or not built by the last incremental link; performing full link
-  RAWRS.vcxproj -> D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\x64\Debug\RAWRS.exe
+﻿  genUtils.cpp
+  main.cpp
+c1xx : fatal error C1083: Cannot open source file: 'src\main.cpp': No such file or directory
+  memory.cpp
+D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\memory.cpp(88,11): warning C4477: 'printf' : format string '%08lx' requires an argument of type 'unsigned long', but variadic argument 1 has type '_Ty1'
+          with
+          [
+              _Ty1=size_t
+          ]
+D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\memory.cpp(88,11): message : consider using '%zx' in the format string
+D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\memory.cpp(94,11): warning C4477: 'printf' : format string '%010ld' requires an argument of type 'long', but variadic argument 1 has type '_Ty1'
+          with
+          [
+              _Ty1=size_t
+          ]
+D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\memory.cpp(94,11): message : consider using '%zd' in the format string
+D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\memory.cpp(97,11): warning C4477: 'printf' : format string '%08lx' requires an argument of type 'unsigned long', but variadic argument 1 has type '_Ty1'
+          with
+          [
+              _Ty1=size_t
+          ]
+D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\memory.cpp(97,11): message : consider using '%zx' in the format string
+D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\memory.cpp(117,19): warning C4477: 'sprintf' : format string '%08lx' requires an argument of type 'unsigned long', but variadic argument 1 has type '_Ty1'
+          with
+          [
+              _Ty1=size_t
+          ]
+D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\memory.cpp(117,19): message : consider using '%zx' in the format string
+D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\memory.cpp(127,19): warning C4477: 'sprintf' : format string '%010ld' requires an argument of type 'long', but variadic argument 1 has type '_Ty1'
+          with
+          [
+              _Ty1=size_t
+          ]
+D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\memory.cpp(127,19): message : consider using '%zd' in the format string
+D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\memory.cpp(132,19): warning C4477: 'sprintf' : format string '%08lx' requires an argument of type 'unsigned long', but variadic argument 1 has type '_Ty1'
+          with
+          [
+              _Ty1=size_t
+          ]
+D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\memory.cpp(132,19): message : consider using '%zx' in the format string
+  parser.cpp
+c1xx : fatal error C1083: Cannot open source file: 'src\parser.cpp': No such file or directory
+  Generating Code...
+D:\academic\AUC\Spring 2023\CompOrg & Assm\RAWRS_SIM\src\memory.cpp(273): error C4716: 'memory::read_from_memory': must return a value
