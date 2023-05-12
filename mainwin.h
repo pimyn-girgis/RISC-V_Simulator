@@ -36,13 +36,13 @@ public:
 
     void update_table_maps(QMap<size_t, QString>* memoryTable, QMap<size_t, QString>* registerTable);
 
-    static QMap<size_t, QString>* convert_to_string_map(std::map<size_t, int> m);
+    static QMap<size_t, QString>* convert_reg_to_string_map(std::map<size_t, unsigned int> m, char printOption);
+
+    static QMap<size_t, QString>* convert_mem_to_string_map(std::map<size_t, unsigned int> m, char printOption);
 
     void update_init_write_files(fs::path* ir, fs::path* im,fs::path* wr, fs::path* wm);
 
     void set_plainText_doc(QString path);
-
-    QMap<size_t, QString>* convert_mem_string_map();
 
 private slots:
     void update_file_name_label(const QString& filename);
@@ -66,6 +66,9 @@ private:
     bool    _maximized = false;
     bool    _fileButtonMenuActive = false;
     bool    _disabledEditor = false;
+    memory _riscReg;
+    memory _riscMem;
+    size_t _riscPc;
 
     QMap<size_t, QString> _memoryBlock;
     QMap<size_t, QString> _registerBlock;

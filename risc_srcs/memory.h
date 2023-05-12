@@ -37,7 +37,7 @@ namespace fs = std::filesystem;
 class memory
 {
 private:
-  std::map<size_t, int>*				_block;							//	AW: memory block, address as key, data as value
+  std::map<size_t, unsigned int>*				_block;							//	AW: memory block, address as key, data as value
 	sectionAddresses*				_sectionAddresses;				//	AW: section labels, string is label .i.e .data and key, address as the value
 
 	size_t							_size;							///	AW:
@@ -52,7 +52,7 @@ public:
 
 	memory();
 	memory(size_t size, fs::path *init_file, fs::path *write_file);
-	memory(	std::map<size_t, int>*	block, 
+    memory(	std::map<size_t, unsigned int>*	block,
 			sectionAddresses*	sA,
 			size_t				size,
 			fs::path*			writeFile,
@@ -63,7 +63,7 @@ public:
 
 	void					set_writeFile(fs::path* writeFile);
 	fs::path*				get_writeFile();
-    std::map<size_t, int>*   get_block()
+    std::map<size_t, unsigned int>*   get_block()
     {
         return _block;
     }

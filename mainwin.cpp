@@ -1,11 +1,12 @@
 #include "mainwin.h"
 #include "ui_mainwin.h"
-
 #include <QThread>
 #include <QStandardItem>
 #include "mapmodel.h"
 #include <filesystem>
 #include <map>
+#include <QDir>
+
 
 #define fs std::filesystem
 
@@ -30,15 +31,15 @@ MainWin::MainWin(QWidget *parent)
     ui->registerView->verticalHeader()->setVisible(false);
     ui->registerView->horizontalHeader()->setVisible(false);
 
-    initRegFile = new fs::path(QFileDialog::getOpenFileName(this, tr("Register File"), "", tr("Text Files (*.txt)")).QString::toStdString());
-    initMemFile = new fs::path(QFileDialog::getOpenFileName(this, tr("Memory File"), "", tr("Text Files (*.txt)")).QString::toStdString());
+    QDir workingDir = QDir::current();
+    workingDir.cdUp();
+    qDebug() << workingDir;
 
-    writeRegFile = new fs::path(QFileDialog::getOpenFileName(this, tr("write reg File"), "", tr("Text Files (*.txt)")).QString::toStdString());
-    writeMemFile = new fs::path(QFileDialog::getOpenFileName(this, tr("write mem File"), "", tr("Text Files (*.txt)")).QString::toStdString());
-    programFile = new fs::path(QFileDialog::getOpenFileName(this, tr("program File"), "", tr("Text Files (*.txt)")).QString::toStdString());
-
-
-
+    initRegFile     = new fs::path("D:/academic/AUC/Spring 2023/RISC-V_Simulator/register_init.txt");
+    initMemFile     = new fs::path("D:/academic/AUC/Spring 2023/RISC-V_Simulator/memory_init.txt");
+    writeRegFile    = new fs::path("D:/academic/AUC/Spring 2023/RISC-V_Simulator/register_write.txt");
+    writeMemFile    = new fs::path("D:/academic/AUC/Spring 2023/RISC-V_Simulator/memory_write.txt");
+    programFile     = new fs::path("D:/academic/AUC/Spring 2023/RISC-V_Simulator/program.txt");
 
     std::string programFileStr = fbm->_fileName.QString::toStdString();
 
@@ -47,7 +48,13 @@ MainWin::MainWin(QWidget *parent)
     set_plainText_doc((QString::fromStdString((programFile->fs::path::string()))));
 
     setupRiscV();
+    _riscReg = RISC32.get_reg();
+    _riscMem = RISC32.get_mem();
+    _riscPc = RISC32.get_pc();
+
     update_tables();
+
+
 }
 
 void MainWin::set_plainText_doc(QString path)
@@ -55,6 +62,7 @@ void MainWin::set_plainText_doc(QString path)
     QFile file(path);
     if (file.open(QFile::ReadOnly | QFile::Text))
         ui->plainTextEdit->setPlainText(file.readAll());
+
 }
 
 void MainWin::update_init_write_files(fs::path* ir, fs::path* im,fs::path* wr, fs::path* wm)
@@ -84,8 +92,6 @@ void MainWin::update_tables()
     MapModel* registerMapModel = new MapModel();
     registerMapModel->setMap(&_registerBlock);
     ui->registerView->setModel(registerMapModel);
-
-
 }
 
 
@@ -118,47 +124,99 @@ void MainWin::on_exitButton_clicked()
     this->close();
 }
 
-QMap<size_t, QString>* MainWin::convert_mem_string_map()
+QMap<size_t, QString>* MainWin::convert_reg_to_string_map(std::map<size_t, unsigned int> m, char printOption)
 {
+
     QMap<size_t, QString>* ret = new QMap<size_t, QString>();
-    char *output = new char[11];
+    char *output = new char[72];
 
-    memory rm = RISC32.get_mem();
-
-    for (size_t i = 0; i < RISC32.get_pc(); i+= 4)
+    switch(printOption)
     {
-        sprintf(output, "0x%.8x", rm.read_from_memory(i, 4));
+    case('x'):
+        for(auto i : m)
+        {
+            sprintf(output, "0x%.8x", i.second);
+            ret->insert(i.first, QString::fromStdString(output));
+        }
+    case('b'):
+        for(auto i : m)
+        {
+            QString str = QString::fromStdString((std::bitset<32>(i.second).std::bitset<32>::to_string())) ;
+            ret->insert(i.first, str);
+        }
+
+    case('d'):
+        for(auto i : m)
+        {
+            sprintf(output, "0d%.010d", i.second);
+            ret->insert(i.first, QString::fromStdString(output));
+        }
+    default:
+        for(auto i : m)
+        {
+            sprintf(output, "0d%.010d", i.second);
+            ret->insert(i.first, QString::fromStdString(output));
+        }
+
     }
 
-    return ret;
-}
 
-QMap<size_t, QString>* MainWin::convert_to_string_map(std::map<size_t, int> m)
-{
-    QMap<size_t, QString>* ret = new QMap<size_t, QString>();
-    char *output = new char[11];
-
-    for(auto i : m)
-    {
-        sprintf(output, "0x%.8x", i.second);
-        ret->insert(i.first, QString::fromStdString(output));
-    }
 
     delete[] output;
 
     return ret;
 }
 
+QMap<size_t, QString>* MainWin::convert_mem_to_string_map(std::map<size_t, unsigned int> m, char printOption)
+{
+    QMap<size_t, QString>* ret = new QMap<size_t, QString>();
+    char *output = new char[72];
+
+
+
+    switch(printOption)
+    {
+    case('x'):
+        for(auto i : m)
+        {
+            sprintf(output, "0x%.8x", i.second);
+            ret->insert(i.first, QString::fromStdString(output));
+        }
+    case('b'):
+        for(auto i : m)
+        {
+            QString str = QString::fromStdString((std::bitset<32>(i.second).std::bitset<32>::to_string())) ;
+            ret->insert(i.first, str);
+        }
+
+    case('d'):
+        for(auto i : m)
+        {
+            sprintf(output, "0d%.010d", i.second);
+            ret->insert(i.first, QString::fromStdString(output));
+        }
+    default:
+        for(auto i : m)
+        {
+            sprintf(output, "0d%.010dx", i.second);
+            ret->insert(i.first, QString::fromStdString(output));
+        }
+
+    }
+
+
+    delete [] output;
+    return ret;
+}
+
 void MainWin::setupRiscV()
 {
-    memory riscReg = RISC32.get_reg();
-    memory riscMem = RISC32.get_mem();
-    int riscPc = RISC32.get_pc();
 
     QMap<size_t, QString>* riscRegOut = new QMap<size_t, QString>();
     QMap<size_t, QString>* riscMemOut = new QMap<size_t, QString>();
-    _registerBlock = *convert_to_string_map(*riscReg.get_block());
-    _memoryBlock = *convert_to_string_map(*riscReg.get_block());
+    _registerBlock = *convert_reg_to_string_map(*_riscReg.get_block(), 'x');
+    _memoryBlock = *convert_mem_to_string_map(*_riscMem.get_block(), 'x');
+
 
 }
 

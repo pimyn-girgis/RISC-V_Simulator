@@ -154,7 +154,7 @@ void memory::write_to_memory(size_t address, int data)
 
 memory::memory()
 {
-	_block = new std::map<size_t,int>();
+    _block = new std::map<size_t, unsigned int>();
 	_sectionAddresses = new sectionAddresses();
 	_size = 0;
 	fs::path* wF = new fs::path(u8"bin/RAWRS_write.txt");
@@ -165,7 +165,7 @@ memory::memory()
 
 }
 
-memory::memory(std::map<size_t, int>* b, sectionAddresses* sA, size_t s, fs::path* wF, fs::path* iF, std::set<size_t>* cA)
+memory::memory(std::map<size_t, unsigned int>* b, sectionAddresses* sA, size_t s, fs::path* wF, fs::path* iF, std::set<size_t>* cA)
 {
 	_block = b;
 	_sectionAddresses = sA;

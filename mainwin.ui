@@ -54,7 +54,7 @@ color:rgb(69, 67, 65);
         </property>
        </widget>
       </item>
-      <item row="1" column="0" rowspan="2">
+      <item row="1" column="0" rowspan="5">
        <widget class="CodeEditor" name="plainTextEdit">
         <property name="styleSheet">
          <string notr="true">QPlainTextEdit {
@@ -78,26 +78,6 @@ selection-radius: 2px
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="label">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QLabel
-{
-color:rgb(69, 67, 65);
-	font: 9pt &quot;JetBrains Mono&quot;;
-}</string>
-        </property>
-        <property name="text">
-         <string>Memory</string>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="1">
        <widget class="QLabel" name="registersLabel">
         <property name="maximumSize">
@@ -118,7 +98,27 @@ color:rgb(69, 67, 65);
         </property>
        </widget>
       </item>
-      <item row="1" column="1" rowspan="2">
+      <item row="0" column="2">
+       <widget class="QLabel" name="label">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel
+{
+color:rgb(69, 67, 65);
+	font: 9pt &quot;JetBrains Mono&quot;;
+}</string>
+        </property>
+        <property name="text">
+         <string>Memory</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" rowspan="5">
        <widget class="QTableView" name="registerView">
         <property name="maximumSize">
          <size>
@@ -145,7 +145,7 @@ width:0px;
         </property>
        </widget>
       </item>
-      <item row="1" column="2" rowspan="2">
+      <item row="1" column="2" rowspan="5">
        <widget class="QTableView" name="tableView">
         <property name="maximumSize">
          <size>
@@ -172,6 +172,27 @@ width:0px;
         </property>
        </widget>
       </item>
+      <item row="1" column="3">
+       <widget class="QRadioButton" name="radioButton_3">
+        <property name="text">
+         <string>x</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="3">
+       <widget class="QRadioButton" name="radioButton_2">
+        <property name="text">
+         <string>d</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QRadioButton" name="radioButton">
+        <property name="text">
+         <string>b</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
     <item row="0" column="1" colspan="3">
@@ -194,33 +215,27 @@ border-color:rgb(42, 41, 39);
 }</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_3">
-       <item row="0" column="4">
-        <widget class="QPushButton" name="fileButton">
+       <item row="0" column="8">
+        <widget class="QPushButton" name="minimizeButton">
          <property name="maximumSize">
           <size>
-           <width>16777215</width>
-           <height>45</height>
+           <width>40</width>
+           <height>16777215</height>
           </size>
          </property>
-         <property name="contextMenuPolicy">
-          <enum>Qt::ActionsContextMenu</enum>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QPushButton{
-	font: 9pt &quot;JetBrains Mono&quot;;
-	color:rgb(103, 100, 97)
-
-}</string>
-         </property>
          <property name="text">
-          <string>file</string>
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="resources.qrc">
+           <normaloff>:/resources/MINIM.png</normaloff>:/resources/MINIM.png</iconset>
          </property>
          <property name="flat">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="0" column="10">
+       <item row="0" column="11">
         <spacer name="horizontalSpacer_3">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -232,6 +247,22 @@ border-color:rgb(42, 41, 39);
           <size>
            <width>10</width>
            <height>10</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="0">
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Minimum</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>10</width>
+           <height>20</height>
           </size>
          </property>
         </spacer>
@@ -255,27 +286,7 @@ border-color:rgb(42, 41, 39);
          </property>
         </widget>
        </item>
-       <item row="0" column="8">
-        <widget class="QPushButton" name="maximizeButton">
-         <property name="maximumSize">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="resources.qrc">
-           <normaloff>:/resources/MAXIM.png</normaloff>:/resources/MAXIM.png</iconset>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="9">
+       <item row="0" column="10">
         <widget class="QPushButton" name="exitButton">
          <property name="maximumSize">
           <size>
@@ -318,23 +329,7 @@ border-color:rgb(42, 41, 39);
          </property>
         </widget>
        </item>
-       <item row="0" column="0">
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Minimum</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>10</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="6">
+       <item row="0" column="7">
         <spacer name="horizontalSpacer">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -347,12 +342,38 @@ border-color:rgb(42, 41, 39);
          </property>
         </spacer>
        </item>
-       <item row="0" column="7">
-        <widget class="QPushButton" name="minimizeButton">
+       <item row="0" column="4">
+        <widget class="QPushButton" name="fileButton">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>45</height>
+          </size>
+         </property>
+         <property name="contextMenuPolicy">
+          <enum>Qt::ActionsContextMenu</enum>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+	font: 9pt &quot;JetBrains Mono&quot;;
+	color:rgb(103, 100, 97)
+
+}</string>
+         </property>
+         <property name="text">
+          <string>file</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="9">
+        <widget class="QPushButton" name="maximizeButton">
          <property name="maximumSize">
           <size>
            <width>40</width>
-           <height>16777215</height>
+           <height>20</height>
           </size>
          </property>
          <property name="text">
@@ -360,7 +381,7 @@ border-color:rgb(42, 41, 39);
          </property>
          <property name="icon">
           <iconset resource="resources.qrc">
-           <normaloff>:/resources/MINIM.png</normaloff>:/resources/MINIM.png</iconset>
+           <normaloff>:/resources/MAXIM.png</normaloff>:/resources/MAXIM.png</iconset>
          </property>
          <property name="flat">
           <bool>true</bool>

@@ -403,7 +403,6 @@ void riscv::stype(int instruction) {
 void riscv::execute() {
   if (end_of_program()) return;
   int instruction = mem.read_from_memory(pc << 2, 4);
-  std::cout << std::left << std::setw(20) << instructions[pc] << "PC: " << std::setw(10) << (pc * 4) << ' ' << "Registers: ";
 
   switch(get_opcode(instruction)) {
     case 0b0110111: // lui
@@ -439,7 +438,7 @@ void riscv::execute() {
       break;
   }
 
-
+  std::cout << std::left << std::setw(20) << instructions[pc] << "PC: " << std::setw(10) << (pc * 4) << ' ' << "Registers: ";
   for(int i = 0; i < 32; i++) {
     std::cout << reg.read_from_memory(i) << " ";
   }
