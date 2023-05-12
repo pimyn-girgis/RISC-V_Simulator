@@ -42,6 +42,8 @@ public:
 
     void set_plainText_doc(QString path);
 
+    QMap<size_t, QString>* convert_mem_string_map();
+
 private slots:
     void update_file_name_label(const QString& filename);
 

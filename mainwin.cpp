@@ -30,11 +30,14 @@ MainWin::MainWin(QWidget *parent)
     ui->registerView->verticalHeader()->setVisible(false);
     ui->registerView->horizontalHeader()->setVisible(false);
 
-    initRegFile = new fs::path("D:/academic/AUC/Spring 2023/RISC-V_Simulator/register_init.txt");
-    initMemFile = new fs::path("D:/academic/AUC/Spring 2023/RISC-V_Simulator/memory_init.txt");
-    writeRegFile = new fs::path("D:/academic/AUC/Spring 2023/RISC-V_Simulator/register_write.txt");
-    writeMemFile = new fs::path("D:/academic/AUC/Spring 2023/RISC-V_Simulator/memory_write.txt");
-    programFile = new fs::path("D:/academic/AUC/Spring 2023/RISC-V_Simulator/program.txt");
+    initRegFile = new fs::path(QFileDialog::getOpenFileName(this, tr("Register File"), "", tr("Text Files (*.txt)")).QString::toStdString());
+    initMemFile = new fs::path(QFileDialog::getOpenFileName(this, tr("Memory File"), "", tr("Text Files (*.txt)")).QString::toStdString());
+
+    writeRegFile = new fs::path(QFileDialog::getOpenFileName(this, tr("write reg File"), "", tr("Text Files (*.txt)")).QString::toStdString());
+    writeMemFile = new fs::path(QFileDialog::getOpenFileName(this, tr("write mem File"), "", tr("Text Files (*.txt)")).QString::toStdString());
+    programFile = new fs::path(QFileDialog::getOpenFileName(this, tr("program File"), "", tr("Text Files (*.txt)")).QString::toStdString());
+
+
 
 
     std::string programFileStr = fbm->_fileName.QString::toStdString();
@@ -52,7 +55,6 @@ void MainWin::set_plainText_doc(QString path)
     QFile file(path);
     if (file.open(QFile::ReadOnly | QFile::Text))
         ui->plainTextEdit->setPlainText(file.readAll());
-
 }
 
 void MainWin::update_init_write_files(fs::path* ir, fs::path* im,fs::path* wr, fs::path* wm)
@@ -116,6 +118,21 @@ void MainWin::on_exitButton_clicked()
     this->close();
 }
 
+QMap<size_t, QString>* MainWin::convert_mem_string_map()
+{
+    QMap<size_t, QString>* ret = new QMap<size_t, QString>();
+    char *output = new char[11];
+
+    memory rm = RISC32.get_mem();
+
+    for (size_t i = 0; i < RISC32.get_pc(); i+= 4)
+    {
+        sprintf(output, "0x%.8x", rm.read_from_memory(i, 4));
+    }
+
+    return ret;
+}
+
 QMap<size_t, QString>* MainWin::convert_to_string_map(std::map<size_t, int> m)
 {
     QMap<size_t, QString>* ret = new QMap<size_t, QString>();
@@ -134,8 +151,6 @@ QMap<size_t, QString>* MainWin::convert_to_string_map(std::map<size_t, int> m)
 
 void MainWin::setupRiscV()
 {
-
-
     memory riscReg = RISC32.get_reg();
     memory riscMem = RISC32.get_mem();
     int riscPc = RISC32.get_pc();
@@ -143,8 +158,7 @@ void MainWin::setupRiscV()
     QMap<size_t, QString>* riscRegOut = new QMap<size_t, QString>();
     QMap<size_t, QString>* riscMemOut = new QMap<size_t, QString>();
     _registerBlock = *convert_to_string_map(*riscReg.get_block());
-    _memoryBlock = *convert_to_string_map(*riscMem.get_block());
-
+    _memoryBlock = *convert_to_string_map(*riscReg.get_block());
 
 }
 
